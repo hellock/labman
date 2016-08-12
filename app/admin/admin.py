@@ -11,7 +11,7 @@ class Admin(Member):
     def list_members(cls):
         members = []
         db = get_db()
-        for info in db.members.find():
+        for info in db.members.find({'uid': {'$gte': 1000}}):
             members.append(Member(info))
         return members
 

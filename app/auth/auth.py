@@ -1,8 +1,7 @@
 import hashlib
-import random
-import string
 
 from app.db import get_db
+from app.utils import rand_str
 
 
 class Auth(object):
@@ -10,8 +9,7 @@ class Auth(object):
     @classmethod
     def encrypt_password(cls, raw_password, salt_len=8):
         hash1 = hashlib.md5(raw_password.encode()).hexdigest()
-        salt = ''.join(random.choice(string.ascii_lowercase + string.digits)
-                       for i in range(salt_len))
+        salt = rand_str(salt_len)
         return salt + hashlib.md5((salt + hash1).encode()).hexdigest()
 
     @classmethod
@@ -40,7 +38,9 @@ class Auth(object):
         return user
 
     @classmethod
-    def add_new_user(cls, uid, username):
+    def add_new_user(cls, uid, username, password=None):
+        if not password:
+            password = username
         db = get_db()
         db.auth.insert_one({
             'uid': uid,

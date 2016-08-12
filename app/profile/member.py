@@ -51,6 +51,7 @@ class Member(object):
         self.zh_name = info['zh_name'] if info else ''
         self.position = info['position'] if info else None
         self.sex = info['sex'] if info else None
+        self.birthdate = info['birthdate'] if info else None
         self.from_date = info['from_date'] if info else None
         self.to_date = info['to_date'] if info else None
         self.supervisor = info['supervisor'] if info else ''
@@ -61,6 +62,25 @@ class Member(object):
         self.publications = info['publications'] if info else []
         self.google_scholar_page = info['google_scholar_page'] if info else ''
         self.avatar_url = info['avatar_url'] if info else '/static/img/avatar/default.png'
+
+    def to_info(self):
+        member_info = {
+            'en_name': self.en_name,
+            'zh_name': self.zh_name,
+            'position': self.position,
+            'sex': self.sex,
+            'birthdate': self.birthdate,
+            'supervisor': self.supervisor,
+            'from_date': self.from_date,
+            'to_date': self.to_date,
+            'bachelor': self.bachelor,
+            'master': self.master,
+            'doctor': self.doctor,
+            'awards': self.awards,
+            'google_scholar_page': self.google_scholar_page,
+            'avatar_url': self.avatar_url
+        }
+        return member_info
 
     def update(self, form):
         member_info = self.form2info(form)
