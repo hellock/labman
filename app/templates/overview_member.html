@@ -14,11 +14,13 @@
 {% endblock %}
 
 {% block content %}
+  {% if session['auth_level'] == 'admin' %}
   <div class="row">
     <div class="col-md-2 pull-right">
       <a href="/member/new" type="button" class="btn btn-block btn-primary"> New Member </a>
     </div>
   </div>
+  {% endif %}
   <p></p>
   <div class="row">
   {% for member in members %}

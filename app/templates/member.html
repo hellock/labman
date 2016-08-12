@@ -6,10 +6,11 @@
 {% endblock %}
 
 {% block content_header %}
-<h1>Profile</h1>
+<h1>Member</h1>
 <ol class="breadcrumb">
   <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
-  <li class="active">profile</li>
+  <li><a href="/overview/members">members</a></li>
+  <li class="active">{{ member.en_name }}</li>
 </ol>
 {% endblock %}
 
@@ -18,7 +19,15 @@
   <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
     {{ macros.profile_form(member) }}
     {% if session['auth_level'] == 'admin' %}
-    <div class="modal" id="modal_delete_confirm">
+    <div class="box-footer">
+      <p>
+      <button type="button" id="button_delete" class="btn btn-danger margin pull-left">Delete</button>
+      <div class="pull-right">
+        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Edit</button>
+        <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
+      </div>
+      </p>
+      <div class="modal" id="modal_delete_confirm">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -38,14 +47,6 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-    <div class="box-footer">
-      <p>
-      <button type="button" id="button_delete" class="btn btn-danger margin pull-left">Delete</button>
-      <div class="pull-right">
-        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Edit</button>
-        <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
-      </div>
-      </p>
     </div>
     <!-- /.box-footer -->
     {% endif %}

@@ -40,7 +40,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="/overview" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>LM</b></span>
       <!-- logo for regular state and mobile devices -->
@@ -96,7 +96,7 @@
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{ session['avatar_url'] }}" class="img-circle" alt="User Image">
+                <img id="img_avatar" src="{{ session['avatar_url'] }}" class="img-circle" alt="User Image">
                 <p>
                   {{ session['en_name'] }}
                   <small>{{ session['position'] }}</small>
@@ -212,6 +212,11 @@
 <script src="../static/AdminLTE/dist/js/app.min.js"></script>
 
 {% block extra_js %}
+<script type="text/javascript">
+  $("#img_avatar").click( function() {
+    location.href="/profile";
+  })
+</script>
 {% endblock %}
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
