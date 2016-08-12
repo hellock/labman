@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content_header %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <h1>{{ messages[0] }}</h1>
+  {% else %}
+    <h1>Members</h1>
+  {% endif %}
+{% endwith %}
+<ol class="breadcrumb">
+  <li><a href="#"><i class="fa fa-dashboard"></i> Overview</a></li>
+  <li class="active">members</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-2 pull-right">
+      <a href="/member/new" type="button" class="btn btn-block btn-primary"> New Member </a>
+    </div>
+  </div>
+  <p></p>
+  <div class="row">
+  {% for member in members %}
+    <div class="col-md-3">
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle" src="{{ member.avatar_url }}" alt="User avatar">
+          <a href="/member/{{ member.uid }}"><h3 class="profile-username text-center">{{ member.en_name }}</h3></a>
+          <p class="text-muted text-center">{{ member.position }}</p>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>Admission date</b> <a class="pull-right">{{ member.from_date }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>Supervisor</b> <a class="pull-right">{{ member.supervisor }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>Publications</b> <a class="pull-right">{{ member.publications | length }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

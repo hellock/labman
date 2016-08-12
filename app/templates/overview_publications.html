@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+
+{% block title %}
+<title>LabMan | Publications</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>Publications</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
+  <li class="active">publications</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+{{ macros.publication_table(publications, with_header=False, with_footer=False) }}
+{% endblock %}
+
+{% block extra_js %}
+{{ macros.publication_js() }}
+{% endblock %}

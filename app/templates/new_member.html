@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | New Member</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>
+  Add new member
+</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
+  <li><a href="/overview/members">members</a></li>
+  <li class="active">new</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-info">
+  <!-- form start -->
+  <form class="form-horizontal" method="post" _lpchecked="1">
+    {{ macros.profile_form(member) }}
+    <div class="box-footer">
+      <button type="submit" class="btn btn-info pull-right">Confirm</button>
+    </div>
+    <!-- /.box-footer -->
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ macros.input_mask() }}
+<script type="text/javascript">
+    $("#sex_option_male").attr('checked', 'checked');
+</script>
+{% endblock %}

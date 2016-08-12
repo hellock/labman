@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | Profile</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>Profile</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Home</a></li>
+  <li class="active">profile</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-info">
+  <!-- form start -->
+  <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
+    {{ macros.profile_form(member) }}
+    <div class="box-footer">
+      <p>
+      <div class="pull-right">
+        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Edit</button>
+        <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
+      </div>
+      </p>
+    </div>
+    <!-- /.box-footer -->
+  </form>
+</div>
+{{ macros.publication_table(member.publications) }}
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $("#select_position").val("{{ member.position }}");
+    $("#form_profile :input").attr("readonly", true);
+    $("#button_update").attr("disabled", true);
+    function toggleEdit(){
+        if ($("#button_edit").text() == "Edit") {
+            $("#button_edit").text("Cancel");
+            $("#form_profile :input").attr("readonly", false);
+            $("#button_update").attr("disabled", false);
+        } else {
+            $("#button_edit").text("Edit");
+            $("#form_profile :input").attr("readonly", true);
+            $("#button_update").attr("disabled", true);
+        }
+    }
+</script>
+{{ macros.input_mask() }}
+{{ macros.publication_js() }}
+{% endblock %}

@@ -1,0 +1,241 @@
+{% macro profile_form(member) -%}
+<div class="box-body">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">English Name</label>
+    <div class="col-sm-10">
+      <input name="en_name" class="form-control" id="input_en_name" value="{{ member.en_name }}" placeholder="Name in English" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Chinese Name</label>
+    <div class="col-sm-10">
+      <input name="zh_name" class="form-control" id="input_zh_name" value="{{ member.zh_name }}" placeholder="Chinese Name (if any)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Position</label>
+    <div class="col-sm-10">
+      <select name="position" id="select_position" class="form-control">
+        <option>Professor</option>
+        <option>PhD</option>
+        <option>MPhil</option>
+        <option>Master</option>
+        <option>PostDoc</option>
+        <option>RA</option>
+        <option>Intern</option>
+        <option>Others</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sex</label>
+    <div class="col-sm-10">
+      <div class="radio">
+        <label>
+        {% if member.sex == 'Male' %}
+          <input type="radio" name="sex" id="sex_option_male" value="Male" checked>
+        {% else %}
+          <input type="radio" name="sex" id="sex_option_male" value="Male">
+        {% endif %}
+          Male
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+        {% if member.sex == 'Female' %}
+          <input type="radio" name="sex" id="sex_option_female" value="Female" checked>
+        {% else %}
+          <input type="radio" name="sex" id="sex_option_female" value="Female">
+        {% endif %}
+          Female
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Birthdate</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <input type="text" name="birthdate" class="form-control" id="input_birthdate" value="{{ member.birthdate|default() }}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+      </div>
+    </div>
+    <!-- /.input group -->
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Supervisor</label>
+    <div class="col-sm-10">
+      <input name="supervisor" class="form-control" id="input_cn_name" value="{{ member.supervisor|default() }}" placeholder="Supervisor" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Admission date</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <input name="from_date" class="form-control" id="input_from_date" value="{{ member.from_date|default() }}" class="form-control" data-inputmask="'alias': 'mm/yyyy'" data-mask>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Graduation date</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <input name="to_date" class="form-control" id="input_to_date" value="{{ member.to_date|default() }}" class="form-control" data-inputmask="'alias': 'mm/yyyy'" data-mask>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Bachelor school</label>
+    <div class="col-sm-10">
+      <input name="bachelor_school" class="form-control" id="input_bachelor_school" value="{{ member.bachelor.school|default() }}" placeholder="University (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Bachelor department</label>
+    <div class="col-sm-10">
+      <input name="bachelor_department" class="form-control" id="input_bachelor_department" value="{{ member.bachelor.department|default() }}" placeholder="Department (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Master school</label>
+    <div class="col-sm-10">
+      <input name="master_school" class="form-control" id="input_master_school" value="{{ member.master.school|default() }}" placeholder="University (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Master department</label>
+    <div class="col-sm-10">
+      <input name="master_department" class="form-control" id="input_master_department" value="{{ member.master.department|default() }}" placeholder="Department (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">PhD school</label>
+    <div class="col-sm-10">
+      <input name="phd_school" class="form-control" id="input_phd_school" value="{{ member.doctor.department|default() }}" placeholder="University (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">PhD department</label>
+    <div class="col-sm-10">
+      <input name="phd_department" class="form-control" id="input_phd_department" value="{{ member.doctor.department }}" placeholder="Department (in English)" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Awards</label>
+    <div class="col-sm-10">
+      <textarea name="awards" class="form-control" rows="3" value="{{ member.awards|join('<br>')|default() }}" placeholder="Place each award in a new line"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Google scholar page</label>
+    <div class="col-sm-10">
+      <input name="google_scholar_page" class="form-control" id="input_google_scholar_page" value="{{ member.google_scholar_page|default() }}" placeholder="Page URL" >
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro input_mask() -%}
+<script src="/static/AdminLTE/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/static/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/static/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#input_birthdate").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        $("#input_from_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
+        $("#input_to_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
+    });
+</script>
+{%- endmacro %}
+
+{% macro publication_table(publications, box_type="box-info", with_header=True, with_footer=True, submit_url="/profile/publications") -%}
+<div class="box {{ box_type }}">
+  <div class="box-body">
+  {% if with_header %}
+    <div class="box-header with-border">
+      <h3 class="box-title">Publications</h3>
+    </div>
+  {% endif %}
+    <div id="dt_pub_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+      <table id="table_pub" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="table_pub_info">
+        <thead>
+          <tr role="row">
+            <th class="sorting" aria-controls="table_pub" aria-label="Year: activate to sort column ascending">Year</th>
+            <th class="sorting" aria-controls="table_pub" aria-label="Conference/Journal: activate to sort column ascending">Conference/Journal</th>
+            <th class="sorting" aria-controls="table_pub" aria-label="Title: activate to sort column ascending">Title</th>
+            <th class="sorting" aria-controls="table_pub" aria-label="Author: activate to sort column ascending">Author</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in publications %}
+          <tr role="row" class="odd">
+            <td class="sorting_1">{{ item['year'] }}</td>
+            <td>{{ item['booktitle'] | default(item['journal']) }}</td>
+            <td>{{ item['title'] }}</td>
+            <td>{{ item['author'] }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% if with_footer %}
+  <div class="box-footer clearfix">
+    <div class="pull-right">
+      <button type="button" id="button_del_pub" class="btn btn-danger margin">Delete</button>
+      <button type="button" id="button_new_pub" class="btn btn-info margin">New</button>
+    </div>
+    <div class="modal" id="modal_new_pub">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">New publication</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form_new_pub" action="{{ submit_url }}", method="POST">
+              <textarea name="new_pub" class="form-control" rows="10" placeholder="Paste the bibtex here"></textarea>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="delete_new_pub_cancel" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" form="form_new_pub" id="button_new_pub_submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{%- endmacro %}
+
+{% macro publication_js(with_footer=True) -%}
+<script src="/static/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#table_pub').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "order": [[0, 'desc'], [1, 'asc']],
+        "info": true,
+        "autoWidth": false,
+      });
+  });
+  {% if with_footer %}
+  $("#button_new_pub").click(function () {
+      $('#modal_new_pub').modal('toggle')
+  });
+  {% endif %}
+</script>
+{%- endmacro %}
