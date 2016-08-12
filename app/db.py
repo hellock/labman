@@ -8,9 +8,9 @@ from app.utils import rand_str
 
 def init_db():
     db = connect_db()
+    # create counter collection and add uid counter
     db.counters.insert_one({'_id': 'uid', 'next_uid': 1000})
-    db.auth.create_index([('uid', ASCENDING)], unique=True)
-    db.members.create_index([('uid', ASCENDING)], unique=True)
+    # add an admin account
     from app.auth import Auth
     from app.profile import Member
     admin_username = 'admin'
@@ -19,12 +19,16 @@ def init_db():
     db.auth.insert_one({
         'uid': 0, 'username': admin_username,
         'password': encrypted, 'auth_level': 'admin'})
+    # add an empty admin memebr
     empty_info = Member().to_info()
     empty_info['uid'] = 0
     empty_info['created_time'] = datetime.utcnow()
     empty_info['updated_time'] = datetime.utcnow()
     empty_info['publications'] = []
     db.members.insert_one(empty_info)
+    # create indexes
+    db.auth.create_index([('uid', ASCENDING)], unique=True)
+    db.members.create_index([('uid', ASCENDING)], unique=True)
     return (admin_username, admin_password)
 
 
