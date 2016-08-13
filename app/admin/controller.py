@@ -9,6 +9,13 @@ mod_admin = Blueprint('mod_admin', __name__, static_folder='../static')
 
 @mod_admin.route('/overview', methods=['GET'])
 def overview():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    elif 'en_name' not in session or 'position' not in 'session':
+        current_user = Admin.get_member_by_uid(session['uid'])
+        session['en_name'] = current_user.en_name
+        session['position'] = current_user.position
+        session['avatar_url'] = current_user.avatar_url
     return overview_members()
 
 
@@ -17,12 +24,9 @@ def overview_members():
     if 'uid' not in session:
         return redirect(url_for('mod_auth.signin'))
     members = Admin.list_members()
-    if 'en_name' not in session or 'position' not in 'session':
-        current_user = Admin.get_member_by_uid(session['uid'])
-        session['en_name'] = current_user.en_name
-        session['position'] = current_user.position
-        session['avatar_url'] = current_user.avatar_url
-    return render_template('overview_member.html', members=members)
+    positions = ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
+                 'RA', 'Intern', 'Others']
+    return render_template('overview_member.html', members=members, positions=positions)
 
 
 @mod_admin.route('/overview/publications', methods=['GET'])

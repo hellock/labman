@@ -22,21 +22,30 @@
   </div>
   {% endif %}
   <p></p>
+  {% for position in positions %}
+  {% if position in members %}
+  <h4>{{ position }}</h4>
   <div class="row">
-  {% for member in members %}
+  {% for member in members[position] %}
     <div class="col-md-3">
       <div class="box box-primary">
         <div class="box-body box-profile">
           <img class="profile-user-img img-responsive img-circle" src="{{ member.avatar_url }}" alt="User avatar">
           <a href="/member/{{ member.uid }}"><h3 class="profile-username text-center">{{ member.en_name }}</h3></a>
-          <p class="text-muted text-center">{{ member.position }}</p>
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>Admission date</b> <a class="pull-right">{{ member.from_date }}</a>
+            {% if member.position == "Professor" %}
+              <b>Join date</b>
+            {% else %}
+              <b>Admission date</b>
+            {% endif %}
+              <a class="pull-right">{{ member.from_date }}</a>
             </li>
+            {% if member.position != "Professor" %}
             <li class="list-group-item">
               <b>Supervisor</b> <a class="pull-right">{{ member.supervisor }}</a>
             </li>
+            {% endif %}
             <li class="list-group-item">
               <b>Publications</b> <a class="pull-right" href="/member/{{ member.uid }}#publications">{{ member.publications | length }}</a>
             </li>
@@ -46,4 +55,6 @@
     </div>
   {% endfor %}
   </div>
+  {% endif %}
+  {% endfor %}
 {% endblock %}

@@ -1,3 +1,4 @@
+from collections import defaultdict
 from datetime import datetime
 
 from app.auth import Auth
@@ -9,10 +10,14 @@ class Admin(Member):
 
     @classmethod
     def list_members(cls):
-        members = []
+        members = defaultdict(list)
         db = get_db()
         for info in db.members.find({'uid': {'$gte': 1000}}):
-            members.append(Member(info))
+            members[info['position']].append(Member(info))
+        # sort by admission date
+        for position in members:
+            members[position].sort(
+                key=lambda x: ''.join(reversed(x.from_date.split('/'))))
         return members
 
     @classmethod

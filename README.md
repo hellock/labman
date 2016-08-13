@@ -58,11 +58,12 @@ Initial admin username: admin, password: ln8nWjX8
 ## TODO list
 - [ ] Use configuration file
 - [ ] Register page
+- [ ] Check name collision when adding a new user or registering
 - [ ] Upload avatar
-- [ ] Change password
+- [x] Change password
 - [ ] Admin settings, such as set the auth level of members
 - [ ] Select supervisor instead of inputting
-- [ ] Show all members according to the admission year and position
+- [x] Show all members according to the admission year and position
 - [ ] Make supervisor on the member overview page clickable
 - [ ] Notification module
 - [ ] Log users' activities

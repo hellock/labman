@@ -1,4 +1,4 @@
-{% macro profile_form(member) -%}
+{% macro profile_form(member, positions=['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master', 'RA', 'Intern', 'Others']) -%}
 <div class="box-body">
   <div class="form-group">
     <label class="col-sm-2 control-label">English Name</label>
@@ -16,14 +16,9 @@
     <label class="col-sm-2 control-label">Position</label>
     <div class="col-sm-10">
       <select name="position" id="select_position" class="form-control">
-        <option>Professor</option>
-        <option>PhD</option>
-        <option>MPhil</option>
-        <option>Master</option>
-        <option>PostDoc</option>
-        <option>RA</option>
-        <option>Intern</option>
-        <option>Others</option>
+      {% for position in positions %}
+        <option>{{ position }}</option>
+      {% endfor %}
       </select>
     </div>
   </div>
