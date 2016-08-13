@@ -8,14 +8,24 @@ LabMan is a laboratory management system designed for [MMLab](http://mmlab.ie.cu
 - Facility management
 
 ## Requirements
-- Python 3.3+
+- Python 3.3+ (Python 2.7+ should be ok but not tested)
 - MongoDB
 
 ## Run
 ### Create a virtual enrironment (optional but recommended)
-For OSX
 ``` shell
-venv
+# For OSX with python3 installed through brew
+venv ./venv
+source venv/bin/activate
+# For Ubuntu 16.04
+# If an error is thrown out when creating a virtual environment, you can first create it without pip, then install pip manually.
+sudo apt-get install python3-venv
+python3 -m venv --without-pip ./venv
+source venv/bin/activate
+wget https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py
+deactivate
+source venv/bin/activate
 ```
 
 ### Install dependencies
