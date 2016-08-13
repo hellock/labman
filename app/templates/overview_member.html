@@ -38,7 +38,7 @@
               <b>Supervisor</b> <a class="pull-right">{{ member.supervisor }}</a>
             </li>
             <li class="list-group-item">
-              <b>Publications</b> <a class="pull-right">{{ member.publications | length }}</a>
+              <b>Publications</b> <a class="pull-right" href="/member/{{ member.uid }}#publications">{{ member.publications | length }}</a>
             </li>
           </ul>
         </div>

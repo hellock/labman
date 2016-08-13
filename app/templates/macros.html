@@ -157,7 +157,7 @@
 {%- endmacro %}
 
 {% macro publication_table(publications, box_type="box-info", with_header=True, with_footer=True, submit_url="/profile/publications") -%}
-<div class="box {{ box_type }}">
+<div class="box {{ box_type }}" id="publications">
   <div class="box-body">
   {% if with_header %}
     <div class="box-header with-border">
