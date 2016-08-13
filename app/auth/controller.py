@@ -1,5 +1,4 @@
-from flask import Blueprint, request, render_template, session, redirect, url_for
-from werkzeug import check_password_hash, generate_password_hash
+from flask import Blueprint, flash, request, render_template, session, redirect, url_for
 
 from .auth import Auth
 
@@ -31,3 +30,19 @@ def signin():
 def signout():
     session.clear()
     return render_template('signin.html')
+
+
+@mod_auth.route('/account', methods=['GET', 'POST'])
+def account():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    if request.method == 'GET':
+        return render_template('account.html')
+    else:
+        ret = Auth.change_password(session['uid'], request.form['old_password'],
+                                   request.form['new_password'])
+        if ret['success']:
+            flash('Password successfully changed!')
+            return redirect(url_for('mod_admin.overview'))
+        else:
+            return render_template('account.html', error_msg=ret['msg'])
