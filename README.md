@@ -59,12 +59,14 @@ Initial admin username: admin, password: ln8nWjX8
 - [x] Use configuration file
 - [ ] Register page
 - [ ] Check name collision when adding a new user or registering
+- [ ] Implement "remember me" checkbox
 - [ ] Upload avatar
 - [x] Change password
 - [ ] Admin settings, such as set the auth level of members
 - [x] Select supervisor instead of inputting
 - [x] Show all members according to the admission year and position
 - [ ] Make supervisor on the member overview page clickable
+- [ ] Delete publications
 - [ ] Notification module
 - [ ] Log users' activities
 - [ ] Facility management

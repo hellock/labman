@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import g
 from pymongo import ASCENDING, MongoClient
 
+from app import CONFIG
 from app.utils import rand_str
 
 
@@ -33,8 +34,8 @@ def init_db():
 
 
 def connect_db():
-    client = MongoClient('localhost', 27017)
-    return client['mmlab']
+    client = MongoClient(CONFIG['db']['ip'], CONFIG['db']['port'])
+    return client[CONFIG['db']['name']]
 
 
 def get_db():
