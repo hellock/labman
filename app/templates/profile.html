@@ -5,6 +5,10 @@
 <title>LabMan | Profile</title>
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/jquery.fileupload.css">
+{% endblock %}
+
 {% block content_header %}
 <h1>Profile</h1>
 <ol class="breadcrumb">
@@ -14,6 +18,21 @@
 {% endblock %}
 
 {% block content %}
+<div class="box box-info">
+  <div class="box-body">
+    <div class="col-sm-3">
+      <form id="file_avatar" action="/profile/avatar" method="POST" enctype="multipart/form-data">
+        <span class="btn btn-info fileinput-button">
+          <i class="fa fa-upload"></i><span> Upload a new photo</span>
+          <input type="file" name="file" multiple>
+        </span>
+      </form>
+    </div>
+    <div class="col-sm-5">
+      <p>Tips: Uploaded photo should be square, such as size 256x256</p>
+    </div>
+  </div>
+</div>
 <div class="box box-info">
   <!-- form start -->
   <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
@@ -33,9 +52,19 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
 <script type="text/javascript">
-    $("#form_profile :input").attr("readonly", true);
-    $("#button_update").attr("disabled", true);
+    $(function () {
+        $("#form_profile :input").attr("readonly", true);
+        $("#button_update").attr("disabled", true);
+        $("#file_avatar").fileupload({
+            dataType: "json",
+            done: function (e, data) {
+                location.reload(true);
+            }
+        });
+    });
     function toggleEdit(){
         if ($("#button_edit").text() == "Edit") {
             $("#button_edit").text("Cancel");

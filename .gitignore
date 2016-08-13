@@ -3,3 +3,5 @@
 __pycache__/
 dbdata/
 venv/
+app/static/img/avatar/*
+!app/static/img/avatar/default.png

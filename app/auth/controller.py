@@ -31,8 +31,8 @@ def signin():
 
 @mod_auth.route('/signout', methods=['GET'])
 def signout():
-    session.clear()
-    return render_template('signin.html')
+    session.pop('uid', None)
+    return redirect(url_for('mod_auth.signin'))
 
 
 @mod_auth.route('/account', methods=['GET', 'POST'])

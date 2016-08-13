@@ -205,18 +205,19 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../static/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/static/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../static/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../static/AdminLTE/dist/js/app.min.js"></script>
+<!-- <script src="/static/AdminLTE/dist/js/app.min.js"></script> -->
 
-{% block extra_js %}
 <script type="text/javascript">
   $("#img_avatar").click( function() {
     location.href="/profile";
   });
 </script>
+
+{% block extra_js %}
 {% endblock %}
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

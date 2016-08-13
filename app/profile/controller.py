@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, jsonify, redirect, render_template, request, session, url_for
 
 from .member import Member
 
@@ -33,3 +33,13 @@ def publications():
         return redirect(url_for('mod_profile.display'))
     else:
         pass
+
+
+@mod_profile.route('/avatar', methods=['POST'])
+def avatar():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    member = Member.get_member_by_uid(session['uid'])
+    if 'file' in request.files:
+        url = member.change_avatar(request.files['file'])
+        return jsonify({'avatar_url': url})

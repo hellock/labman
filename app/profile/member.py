@@ -98,6 +98,13 @@ class Member(object):
         db.members.update_one({'uid': self.uid}, {'$set': member_info})
         return True
 
+    def change_avatar(self, img_file):
+        avatar_url = '/static/img/avatar/{}.png'.format(self.uid)
+        img_file.save('app' + avatar_url)
+        db = get_db()
+        db.members.update_one({'uid': self.uid}, {'$set': {'avatar_url': avatar_url}})
+        return avatar_url
+
     def add_publication(self, bibtex):
         bib_db = bibtexparser.loads(bibtex)
         db = get_db()

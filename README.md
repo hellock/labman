@@ -70,7 +70,7 @@ Initial admin username: admin, password: ln8nWjX8
 - [ ] Register page
 - [ ] Check name collision when adding a new user or registering
 - [ ] Implement "remember me" checkbox
-- [ ] Upload avatar
+- [x] Upload avatar
 - [x] Change password
 - [ ] Admin settings, such as set the auth level of members
 - [x] Select supervisor instead of inputting
@@ -79,5 +79,6 @@ Initial admin username: admin, password: ln8nWjX8
 - [ ] Delete publications
 - [ ] Notification module
 - [ ] Log users' activities
+- [ ] Search box
 - [ ] Facility management
 - [ ] Show statistics
