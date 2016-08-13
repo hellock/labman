@@ -45,6 +45,16 @@ class Member(object):
         }
         return member_info
 
+    @classmethod
+    def list_supervisors(cls):
+        supervisors = []
+        db = get_db()
+        for info in db.members.find({'uid': {'$gte': 1000}, 'position': 'Professor'}):
+            supervisors.append(Member(info))
+        supervisors.sort(
+            key=lambda x: ''.join(reversed(x.from_date.split('/'))))
+        return supervisors
+
     def __init__(self, info=None):
         self.uid = info['uid'] if info else 0
         self.en_name = info['en_name'] if info else ''

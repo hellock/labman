@@ -17,7 +17,7 @@
 {% block content %}
 <div class="box box-info">
   <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
-    {{ macros.profile_form(member) }}
+    {{ macros.profile_form(member, supervisors) }}
     {% if session['auth_level'] == 'admin' %}
     <div class="box-footer">
       <p>
@@ -58,9 +58,8 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-    $("#select_position").val("{{ member.position }}");
-    {% if session['auth_level'] == 'admin' %}
     $("#form_profile :input").attr("readonly", true);
+    {% if session['auth_level'] == 'admin' %}
     $("#button_update").attr("disabled", true);
     function toggleEdit(){
         if ($("#button_edit").text() == "Edit") {
@@ -88,5 +87,6 @@
     {% endif %}
 </script>
 {{ macros.input_mask() }}
+{{ macros.select_default(member) }}
 {{ macros.publication_js() }}
 {% endblock %}

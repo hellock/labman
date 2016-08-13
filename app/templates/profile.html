@@ -17,7 +17,7 @@
 <div class="box box-info">
   <!-- form start -->
   <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
-    {{ macros.profile_form(member) }}
+    {{ macros.profile_form(member, supervisors) }}
     <div class="box-footer">
       <p>
       <div class="pull-right">
@@ -34,7 +34,6 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-    $("#select_position").val("{{ member.position }}");
     $("#form_profile :input").attr("readonly", true);
     $("#button_update").attr("disabled", true);
     function toggleEdit(){
@@ -50,5 +49,6 @@
     }
 </script>
 {{ macros.input_mask() }}
+{{ macros.select_default(member) }}
 {{ macros.publication_js() }}
 {% endblock %}

@@ -22,7 +22,7 @@
   </div>
   {% endif %}
   <p></p>
-  {% for position in positions %}
+  {% for position in session['config']['positions'] %}
   {% if position in members %}
   <h4>{{ position }}</h4>
   <div class="row">

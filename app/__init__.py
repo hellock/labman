@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, render_template
 
+from app.config import CONFIG
 from app.admin import mod_admin
 from app.auth import mod_auth
 from app.profile import mod_profile

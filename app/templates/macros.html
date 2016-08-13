@@ -1,4 +1,4 @@
-{% macro profile_form(member, positions=['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master', 'RA', 'Intern', 'Others']) -%}
+{% macro profile_form(member, supervisors) -%}
 <div class="box-body">
   <div class="form-group">
     <label class="col-sm-2 control-label">English Name</label>
@@ -16,7 +16,7 @@
     <label class="col-sm-2 control-label">Position</label>
     <div class="col-sm-10">
       <select name="position" id="select_position" class="form-control">
-      {% for position in positions %}
+      {% for position in session['config']['positions'] %}
         <option>{{ position }}</option>
       {% endfor %}
       </select>
@@ -62,7 +62,13 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Supervisor</label>
     <div class="col-sm-10">
-      <input name="supervisor" class="form-control" id="input_cn_name" value="{{ member.supervisor|default() }}" placeholder="Supervisor" >
+      <select name="supervisor" id="select_supervisor" class="form-control">
+      {% for supervisor in supervisors %}
+        <option>{{ supervisor.en_name }}</option>
+      {% endfor %}
+        <option>Others</option>
+        <option>None</option>
+      </select>
     </div>
   </div>
   <div class="form-group">
@@ -149,6 +155,16 @@
         $("#input_to_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
     });
 </script>
+{%- endmacro %}
+
+{% macro select_default(member) -%}
+<script type="text/javascript">
+    $(function () {
+        $("#select_position").val("{{ member.position }}");
+        $("#select_supervisor").val("{{ member.supervisor | default('') }}")
+    });
+</script>
+
 {%- endmacro %}
 
 {% macro publication_table(publications, box_type="box-info", with_header=True, with_footer=True, submit_url="/profile/publications") -%}

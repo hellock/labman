@@ -12,7 +12,9 @@ def display():
         return redirect(url_for('mod_auth.signin'))
     member = Member.get_member_by_uid(session['uid'])
     if request.method == 'GET':
-        return render_template('profile.html', member=member)
+        supervisors = Member.list_supervisors()
+        return render_template('profile.html', member=member,
+                               supervisors=supervisors)
     elif request.method == 'POST':
         if member.update(request.form):
             flash('Profile updated!')

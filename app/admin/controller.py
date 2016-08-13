@@ -24,9 +24,7 @@ def overview_members():
     if 'uid' not in session:
         return redirect(url_for('mod_auth.signin'))
     members = Admin.list_members()
-    positions = ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
-                 'RA', 'Intern', 'Others']
-    return render_template('overview_member.html', members=members, positions=positions)
+    return render_template('overview_member.html', members=members)
 
 
 @mod_admin.route('/overview/publications', methods=['GET'])
@@ -49,7 +47,9 @@ def add_member():
                  'please contact the administrator.'
         )
     if request.method == 'GET':
-        return render_template('new_member.html', member=Member())
+        supervisors = Admin.list_supervisors()
+        return render_template('new_member.html', member=Member(),
+                               supervisors=supervisors)
     else:
         if Admin.add_member(request.form):
             flash('Successfully added a new member!')
@@ -64,7 +64,9 @@ def view_member(uid):
         return redirect(url_for('mod_auth.signin'))
     if request.method == 'GET':
         member = Admin.get_member_by_uid(uid)
-        return render_template('member.html', member=member)
+        supervisors = Admin.list_supervisors()
+        return render_template('member.html', member=member,
+                               supervisors=supervisors)
     elif request.method == 'POST':
         if Admin.update_member(uid, request.form):
             flash('Member info updated!')

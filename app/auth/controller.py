@@ -1,6 +1,7 @@
 from flask import Blueprint, flash, request, render_template, session, redirect, url_for
 
 from .auth import Auth
+from app import CONFIG
 
 
 mod_auth = Blueprint('mod_auth', __name__, static_folder='../static')
@@ -13,6 +14,8 @@ def index():
 
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
+    if 'config' not in session:
+        session['config'] = CONFIG
     if request.method == 'GET':
         return render_template('signin.html')
     else:
