@@ -12,6 +12,23 @@ def index():
     return redirect(url_for('mod_auth.signin'))
 
 
+@mod_auth.route('/register', methods=['GET', 'POST'])
+def register():
+    if 'config' not in session:
+        session['config'] = CONFIG
+    if request.method == 'GET':
+        return render_template('register.html')
+    else:
+        ret = Auth.register(request.form['en_name'], request.form['password'])
+        if ret['success']:
+            session['uid'] = ret['uid']
+            session['auth_level'] = 'member'
+            flash('Please complete your profile as soon!')
+            return redirect(url_for('mod_admin.overview'))
+        else:
+            return render_template('register.html', error_msg=ret['msg'])
+
+
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     if 'config' not in session:

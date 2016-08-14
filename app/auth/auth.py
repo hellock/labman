@@ -1,6 +1,8 @@
 import hashlib
+from datetime import datetime
 
 from app.db import get_db
+from app.profile import Member
 from app.utils import rand_str
 
 
@@ -13,7 +15,7 @@ class Auth(object):
         elif src == 'md5':
             hash1 = password
         else:
-            raise ValueError('password src must be either plain_text or md5')
+            raise ValueError('`src` must be either "plain_text" or "md5"')
         salt = rand_str(salt_len)
         return salt + hashlib.md5((salt + hash1).encode()).hexdigest()
 
@@ -54,13 +56,35 @@ class Auth(object):
         return user
 
     @classmethod
-    def add_new_user(cls, uid, username, password=None):
+    def add_new_user(cls, uid, username, password=None, src='plain_text'):
         if not password:
             password = username
         db = get_db()
         db.auth.insert_one({
             'uid': uid,
             'username': username,
-            'password': cls.encrypt_password(username),
+            'password': cls.encrypt_password(password, src),
             'auth_level': 'member'
         })
+
+    @classmethod
+    def get_next_uid(cls):
+        db = get_db()
+        res = db.counters.find_one_and_update(
+            {'_id': 'uid'}, {'$inc': {'next_uid': 1}})
+        return res['next_uid']
+
+    @classmethod
+    def register(cls, en_name, password):
+        uid = cls.get_next_uid()
+        username = en_name.replace(' ', '').lower()
+        cls.add_new_user(uid, username, password, 'md5')
+        member_info = Member().to_info()
+        member_info['uid'] = uid
+        member_info['en_name'] = en_name
+        member_info['created_time'] = datetime.utcnow()
+        member_info['updated_time'] = datetime.utcnow()
+        member_info['publications'] = []
+        db = get_db()
+        db.members.insert_one(member_info)
+        return {'success': True, 'uid': uid}

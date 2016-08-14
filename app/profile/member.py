@@ -67,8 +67,8 @@ class Member(object):
         self.birthdate = info['birthdate'] if info else None
         self.email = info['email'] if info else ''
         self.supervisor = info['supervisor'] if info else ''
-        self.from_date = info['from_date'] if info else None
-        self.to_date = info['to_date'] if info else None
+        self.from_date = info['from_date'] if info else ''
+        self.to_date = info['to_date'] if info else ''
         self.bachelor = info['bachelor'] if info else {'school': '', 'major': ''}
         self.master = info['master'] if info else {'school': '', 'major': ''}
         self.doctor = info['doctor'] if info else {'school': '', 'major': ''}
