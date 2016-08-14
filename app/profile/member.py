@@ -25,6 +25,7 @@ class Member(object):
             'position': form['position'],
             'sex': form['sex'],
             'birthdate': form['birthdate'],
+            'email': form['email'],
             'supervisor': form['supervisor'],
             'from_date': form['from_date'],
             'to_date': form['to_date'],
@@ -42,6 +43,8 @@ class Member(object):
             },
             'awards': awards,
             'google_scholar_page': form['google_scholar_page'],
+            'cv_url': form['cv_url'],
+            'homepage': form['homepage']
         }
         return member_info
 
@@ -62,15 +65,18 @@ class Member(object):
         self.position = info['position'] if info else None
         self.sex = info['sex'] if info else None
         self.birthdate = info['birthdate'] if info else None
+        self.email = info['email'] if info else ''
+        self.supervisor = info['supervisor'] if info else ''
         self.from_date = info['from_date'] if info else None
         self.to_date = info['to_date'] if info else None
-        self.supervisor = info['supervisor'] if info else ''
         self.bachelor = info['bachelor'] if info else {'school': '', 'major': ''}
         self.master = info['master'] if info else {'school': '', 'major': ''}
         self.doctor = info['doctor'] if info else {'school': '', 'major': ''}
         self.awards = info['awards'] if info else []
         self.publications = info['publications'] if info else []
         self.google_scholar_page = info['google_scholar_page'] if info else ''
+        self.cv_url = info['cv_url'] if info else ''
+        self.homepage = info['homepage'] if info else ''
         self.avatar_url = info['avatar_url'] if info else '/static/img/avatar/default.png'
 
     def to_info(self):
@@ -80,6 +86,7 @@ class Member(object):
             'position': self.position,
             'sex': self.sex,
             'birthdate': self.birthdate,
+            'email': self.email,
             'supervisor': self.supervisor,
             'from_date': self.from_date,
             'to_date': self.to_date,
@@ -88,6 +95,8 @@ class Member(object):
             'doctor': self.doctor,
             'awards': self.awards,
             'google_scholar_page': self.google_scholar_page,
+            'cv_url': self.cv_url,
+            'homepage': self.homepage,
             'avatar_url': self.avatar_url
         }
         return member_info

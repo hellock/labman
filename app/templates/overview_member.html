@@ -47,8 +47,17 @@
             </li>
             {% endif %}
             <li class="list-group-item">
-              <b>Publications</b> <a class="pull-right" href="/member/{{ member.uid }}#publications">{{ member.publications | length }}</a>
+              <b>Email</b> <a class="pull-right" href="mailto:{{ member.email }}">{{ member.email }}</a>
             </li>
+            {% if member.position != "Professor" %}
+            <li class="list-group-item">
+              {% if member.cv_url %}
+              <b>CV</b> <a class="pull-right" href="{{ member.cv_url }}">Link</a>
+              {% else %}
+              <b>CV</b> <a class="pull-right">None</a>
+              {% endif %}
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
