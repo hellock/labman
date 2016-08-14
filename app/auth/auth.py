@@ -1,9 +1,7 @@
 import hashlib
-from datetime import datetime
 
 from app.db import get_db
-from app.profile import Member
-from app.utils import rand_str
+from app.utils import get_next_uid, rand_str
 
 
 class Auth(object):
@@ -68,23 +66,13 @@ class Auth(object):
         })
 
     @classmethod
-    def get_next_uid(cls):
+    def del_user(cls, uid):
         db = get_db()
-        res = db.counters.find_one_and_update(
-            {'_id': 'uid'}, {'$inc': {'next_uid': 1}})
-        return res['next_uid']
+        db.auth.delete_one({'uid': uid})
 
     @classmethod
     def register(cls, en_name, password):
-        uid = cls.get_next_uid()
+        uid = get_next_uid()
         username = en_name.replace(' ', '').lower()
         cls.add_new_user(uid, username, password, 'md5')
-        member_info = Member().to_info()
-        member_info['uid'] = uid
-        member_info['en_name'] = en_name
-        member_info['created_time'] = datetime.utcnow()
-        member_info['updated_time'] = datetime.utcnow()
-        member_info['publications'] = []
-        db = get_db()
-        db.members.insert_one(member_info)
         return {'success': True, 'uid': uid}

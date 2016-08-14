@@ -2,6 +2,7 @@ from flask import Blueprint, flash, request, render_template, session, redirect,
 
 from .auth import Auth
 from app import CONFIG
+from app.member import Member
 
 
 mod_auth = Blueprint('mod_auth', __name__, static_folder='../static')
@@ -21,10 +22,14 @@ def register():
     else:
         ret = Auth.register(request.form['en_name'], request.form['password'])
         if ret['success']:
+            member = Member()
+            member.uid = ret['uid']
+            member.en_name = request.form['en_name']
+            member.create()
             session['uid'] = ret['uid']
             session['auth_level'] = 'member'
             flash('Please complete your profile as soon!')
-            return redirect(url_for('mod_admin.overview'))
+            return redirect(url_for('mod_overview.index'))
         else:
             return render_template('register.html', error_msg=ret['msg'])
 
@@ -43,7 +48,7 @@ def signin():
             user_info = Auth.get_user_info(request.form['username'])
             session['uid'] = user_info['uid']
             session['auth_level'] = user_info['auth_level']
-            return redirect(url_for('mod_admin.overview'))
+            return redirect(url_for('mod_overview.index'))
 
 
 @mod_auth.route('/signout', methods=['GET'])
@@ -63,6 +68,6 @@ def account():
                                    request.form['new_password'])
         if ret['success']:
             flash('Password successfully changed!')
-            return redirect(url_for('mod_admin.overview'))
+            return redirect(url_for('mod_overview.index'))
         else:
             return render_template('account.html', error_msg=ret['msg'])

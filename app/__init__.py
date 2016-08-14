@@ -3,9 +3,9 @@ import os
 from flask import Flask, render_template
 
 from app.config import CONFIG
-from app.admin import mod_admin
 from app.auth import mod_auth
-from app.profile import mod_profile
+from app.member import mod_member
+from app.overview import mod_overview
 
 
 app = Flask(__name__)
@@ -13,8 +13,8 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 app.register_blueprint(mod_auth)
-app.register_blueprint(mod_admin)
-app.register_blueprint(mod_profile)
+app.register_blueprint(mod_member)
+app.register_blueprint(mod_overview)
 
 
 @app.errorhandler(404)
