@@ -105,12 +105,22 @@ class Member(object):
         db.members.update_one({'uid': self.uid}, {'$set': {'avatar_url': avatar_url}})
         return avatar_url
 
-    def add_publication(self, bibtex):
-        bib_db = bibtexparser.loads(bibtex)
+    def add_publication(self, form):
         db = get_db()
+        if 'bibtex' in form:
+            bib_db = bibtexparser.loads(form['bibtex'])
+            entries = bib_db.entries
+        elif 'booktitle' in form or 'journal' in form:
+            entries = {}
+            for key in form:
+                if form[key]:
+                    entries[key] = form[key]
+            entries['ID'] = (entries['author'].split(',')[0] + entries['year'] +
+                             entries['title'].split(' ')[0]).lower()
+            entries = [entries]
         db.members.update_one(
             {'uid': self.uid},
-            {'$push': {'publications': {'$each': bib_db.entries}}}
+            {'$push': {'publications': {'$each': entries}}}
         )
 
     def del_publication(self, pub_id):

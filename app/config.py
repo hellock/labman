@@ -11,5 +11,16 @@ CONFIG = {
     'run_mode': 'debug',
     # list of positions to be chosen from
     'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
-                  'RA', 'Intern', 'Others']
+                  'RA', 'Intern', 'Others'],
+    'conferences': [
+        'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
+        'The IEEE International Conference on Computer Vision (ICCV)',
+        'European Conference Computer Vision (ECCV)',
+        'Advances in Neural Information Processing Systems (NIPS)',
+        'Proceedings of the International Conference on Machine Learning (ICML)'
+    ],
+    'journals': [
+        'IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)',
+        'International Journal of Computer Vision (IJCV)'
+    ]
 }

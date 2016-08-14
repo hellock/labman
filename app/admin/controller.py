@@ -93,7 +93,7 @@ def add_publication(uid):
         )
     member = Member.get_member_by_uid(uid)
     if request.method == 'POST':
-        member.add_publication(request.form['new_pub'])
+        member.add_publication(request.form)
         return redirect(url_for('mod_admin.view_member', uid=uid))
     else:
         pass

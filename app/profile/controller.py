@@ -29,7 +29,7 @@ def publications():
         return redirect(url_for('mod_auth.signin'))
     member = Member.get_member_by_uid(session['uid'])
     if request.method == 'POST':
-        member.add_publication(request.form['new_pub'])
+        member.add_publication(request.form)
         return redirect(url_for('mod_profile.display'))
     else:
         pass

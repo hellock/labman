@@ -66,6 +66,6 @@ class Admin(Member):
         publications = {}
         for member in members:
             for item in member['publications']:
-                if item['ID'] not in publications:
-                    publications[item['ID']] = item
+                if item['title'] not in publications:
+                    publications[item['title']] = item
         return publications.values()

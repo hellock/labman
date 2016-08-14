@@ -167,6 +167,95 @@
 
 {%- endmacro %}
 
+{% macro new_publication_form(form_id, submit_url) -%}
+<form class="form-horizontal" id="{{ form_id }}" action="{{ submit_url }}" method="post" _lpchecked="1">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
+      <input name="title" class="form-control" id="input_title" placeholder="Title" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Author</label>
+    <div class="col-sm-10">
+      <input name="author" class="form-control" id="input_author" placeholder="Author" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Publication year</label>
+    <div class="col-sm-10">
+      <input name="year" class="form-control" id="input_year" placeholder="yyyy" required>
+    </div>
+  </div>
+  <div class="form-group">
+    {{ caller() }}
+  </div>
+  <p class="text-light-blue">If you cannot find the conference/journal you want, please use the bibtex to add publications.</p>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Volume</label>
+    <div class="col-sm-10">
+      <input name="volume" class="form-control" id="input_volume" placeholder="Volume">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Pages</label>
+    <div class="col-sm-10">
+      <input name="pages" class="form-control" id="input_pages" placeholder="Pages">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Publisher</label>
+    <div class="col-sm-10">
+      <input name="publisher" class="form-control" id="input_publisher" placeholder="Publisher">
+    </div>
+  </div>
+</form>
+{%- endmacro %}
+
+{% macro new_publication_tab(submit_url) -%}
+{{ caller() }}
+<div class="nav-tabs-custom">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab_bibtex" data-toggle="tab" aria-expanded="true">Bibtex</a></li>
+    <li class=""><a href="#tab_conference" data-toggle="tab" aria-expanded="false">Conference</a></li>
+    <li class=""><a href="#tab_journal" data-toggle="tab" aria-expanded="false">Journal</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_bibtex">
+      <form id="form_bibtex" action="{{ submit_url }}" method="POST">
+        <textarea name="bibtex" class="form-control" rows="10" placeholder="Paste the bibtex here"></textarea>
+      </form>
+    </div>
+    <div class="tab-pane" id="tab_conference">
+      {% call new_publication_form("form_conference", submit_url) %}
+        <label class="col-sm-2 control-label">Conference</label>
+        <div class="col-sm-10">
+          <select name="booktitle" id="select_conference" class="form-control">
+            {% for conference in session['config']['conferences'] %}
+            <option>{{ conference }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endcall %}
+    </div>
+    <div class="tab-pane" id="tab_journal">
+      {% call new_publication_form("form_journal", submit_url) %}
+        <label class="col-sm-2 control-label">Journal</label>
+        <div class="col-sm-10">
+          <select name="journal" id="select_journal" class="form-control">
+            {% for journal in session['config']['journals'] %}
+            <option>{{ journal }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endcall %}
+    </div>
+  </div>
+  <!-- /.tab-content -->
+</div>
+{%- endmacro %}
+
+
 {% macro publication_table(publications, box_type="box-info", with_header=True, with_footer=True, submit_url="/profile/publications") -%}
 <div class="box {{ box_type }}" id="publications">
   <div class="box-body">
@@ -213,13 +302,12 @@
             <h4 class="modal-title">New publication</h4>
           </div>
           <div class="modal-body">
-            <form id="form_new_pub" action="{{ submit_url }}", method="POST">
-              <textarea name="new_pub" class="form-control" rows="10" placeholder="Paste the bibtex here"></textarea>
-            </form>
+            {% call new_publication_tab(submit_url) %}
+            {% endcall %}
           </div>
           <div class="modal-footer">
             <button type="button" id="delete_new_pub_cancel" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-            <button type="submit" form="form_new_pub" id="button_new_pub_submit" class="btn btn-success">Submit</button>
+            <button type="button" id="button_new_pub_submit" class="btn btn-success">Submit</button>
           </div>
         </div>
       </div>
@@ -232,6 +320,7 @@
 {% macro publication_js(with_footer=True) -%}
 <script src="/static/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/static/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/static/js/jquery.validate.min.js"></script>
 <script>
   $(document).ready(function () {
     $('#table_pub').DataTable({
@@ -245,7 +334,19 @@
   });
   {% if with_footer %}
   $("#button_new_pub").click(function () {
-      $('#modal_new_pub').modal('toggle')
+      $("#modal_new_pub").modal("toggle");
+  });
+  $("#button_new_pub_submit").click(function () {
+      var submitType = $('.nav-tabs .active').text();
+      var form_selector = "#form_" + submitType.toLowerCase();
+      $(form_selector).validate({
+        rules: {
+            title: {required: true},
+            author: {required: true},
+            year: {required: true}
+        }
+    });
+      $(form_selector).submit();
   });
   {% endif %}
 </script>

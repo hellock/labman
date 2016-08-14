@@ -1,7 +1,6 @@
 # LabMan
 
 ## Overview
-
 LabMan is a laboratory management system designed for [MMLab](http://mmlab.ie.cuhk.edu.hk/). This web-based system offers convenience for the following purposes:
 - Member management
 - Publication management
@@ -77,8 +76,11 @@ Initial admin username: admin, password: ln8nWjX8
 - [x] Show all members according to the admission year and position
 - [ ] Make supervisor on the member overview page clickable
 - [ ] Delete publications
+- [x] Support submitting forms besides bibtex to add publications
 - [ ] Notification module
 - [ ] Log users' activities
 - [ ] Search box
 - [ ] Facility management
 - [ ] Show statistics
+- [ ] Support candidates and alumni
+- [ ] Design an icon for LabMan
