@@ -79,7 +79,7 @@ Initial admin username: admin, password: ln8nWjX8
 - [x] Support submitting forms besides bibtex to add publications
 - [ ] Notification module
 - [ ] Log users' activities
-- [ ] Search box
+- [x] Search box
 - [ ] Facility management
 - [x] Show statistics
 - [x] Support candidates and alumni

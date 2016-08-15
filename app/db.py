@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from flask import g
-from pymongo import ASCENDING, MongoClient
+from pymongo import ASCENDING, MongoClient, TEXT
 
 from app import CONFIG
 from app.utils import rand_str
@@ -30,6 +30,7 @@ def init_db():
     # create indexes
     db.auth.create_index([('uid', ASCENDING)], unique=True)
     db.members.create_index([('uid', ASCENDING)], unique=True)
+    db.members.create_index([('en_name', TEXT)])
     return (admin_username, admin_password)
 
 

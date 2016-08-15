@@ -44,6 +44,13 @@ class Member(object):
         return members
 
     @classmethod
+    def search(cls, keyword):
+        members = defaultdict(list)
+        for info in cls._db_find({'$text': {'$search': keyword}}):
+            members[info['position']].append(Member(info))
+        return members
+
+    @classmethod
     def list_publications(cls):
         members_with_pub = cls._db_find({'publications': {'$exists': True}})
         publications = {}
@@ -119,7 +126,7 @@ class Member(object):
             raise ValueError('update target must be either "one" or "many"')
 
     @classmethod
-    def _db_find(cls, filter=None, target='many'):
+    def _db_find(cls, filter=None, target='many', **options):
         if filter is None:
             filter = {}
         if not isinstance(filter, dict):
@@ -128,9 +135,9 @@ class Member(object):
             filter['uid'] = {'$gte': 1000}
         db = get_db()
         if target == 'one':
-            return db.members.find_one(filter)
+            return db.members.find_one(filter, **options)
         elif target == 'many':
-            return db.members.find(filter)
+            return db.members.find(filter, **options)
         else:
             raise ValueError('find target must be either "one" or "many"')
 

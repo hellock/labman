@@ -46,6 +46,14 @@ def avatar():
         return jsonify({'avatar_url': url})
 
 
+@mod_member.route('/member/search', methods=['GET'])
+def search():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    members = Member.search(request.args.get('q', ''))
+    return render_template('overview_member.html', members=members)
+
+
 @mod_member.route('/member/new', methods=['GET', 'POST'])
 def add_member():
     if 'uid' not in session:
