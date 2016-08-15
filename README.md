@@ -67,7 +67,7 @@ Initial admin username: admin, password: ln8nWjX8
 ## TODO list
 - [x] Use configuration file
 - [x] Register page
-- [ ] Check name collision when adding a new user or registering
+- [x] Check name collision when adding a new user or registering
 - [ ] Implement "remember me" checkbox
 - [x] Upload avatar
 - [x] Change password

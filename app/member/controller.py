@@ -18,9 +18,9 @@ def profile():
                                supervisors=supervisors)
     elif request.method == 'POST':
         if member.update(request.form):
-            flash('Profile updated!')
+            flash('Profile updated!', 'success')
         else:
-            flash('Failed to update your profile!')
+            flash('Failed to update your profile!', 'error')
         return redirect(url_for('mod_overview.index'))
 
 
@@ -64,10 +64,11 @@ def add_member():
         member = Member.new(request.form)
         if member:
             username = member.en_name.replace(' ', '').lower()
-            Auth.add_new_user(member.uid, username)
-            flash('Successfully added a new member!')
+            username = Auth.add_new_user(member.uid, username)
+            flash('Successfully added a new member, username is ' + username,
+                  'success')
         else:
-            flash('Failed to add a new member!')
+            flash('Failed to add a new member!', 'error')
         return redirect(url_for('mod_overview.index'))
 
 
@@ -83,16 +84,16 @@ def view_member(uid):
     elif request.method == 'POST':
         member = Member.get_by_uid(uid)
         if member.update(request.form):
-            flash('Member info updated!')
+            flash('Member info updated!', 'success')
         else:
-            flash('Failed to update the member info!')
+            flash('Failed to update the member info!', 'error')
         return redirect(url_for('mod_overview.index'))
     else:
         if Member.delete(uid):
             Auth.del_user(uid)
-            flash('Successfully deleted a member!')
+            flash('Successfully deleted a member!', 'success')
         else:
-            flash('Failed to delete a member!')
+            flash('Failed to delete a member!', 'error')
         return ''
 
 

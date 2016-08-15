@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 {% block content_header %}
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <h1>{{ messages[0] }}</h1>
-  {% else %}
-    <h1>Members</h1>
-  {% endif %}
-{% endwith %}
+<h1>Members</h1>
 <ol class="breadcrumb">
   <li><a href="/overview"><i class="fa fa-dashboard"></i> Overview</a></li>
   <li class="active">members</li>

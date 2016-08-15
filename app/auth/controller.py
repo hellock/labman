@@ -28,7 +28,8 @@ def register():
             member.create()
             session['uid'] = ret['uid']
             session['auth_level'] = 'member'
-            flash('Please complete your profile as soon!')
+            flash('Your username is {}, please complete your profile as soon!'
+                  .format(ret['username']), 'info')
             return redirect(url_for('mod_overview.index'))
         else:
             return render_template('register.html', error_msg=ret['msg'])
@@ -67,7 +68,7 @@ def account():
         ret = Auth.change_password(session['uid'], request.form['old_password'],
                                    request.form['new_password'])
         if ret['success']:
-            flash('Password successfully changed!')
+            flash('Password successfully changed!', 'success')
             return redirect(url_for('mod_overview.index'))
         else:
             return render_template('account.html', error_msg=ret['msg'])

@@ -58,12 +58,19 @@ class Auth(object):
         if not password:
             password = username
         db = get_db()
+        if db.auth.find_one({'username': username}):
+            for idx in range(1, 100):
+                new_username = '{}{:>02d}'.format(username, idx)
+                if not db.auth.find_one({'username': new_username}):
+                    username = new_username
+                    break
         db.auth.insert_one({
             'uid': uid,
             'username': username,
             'password': cls.encrypt_password(password, src),
             'auth_level': 'member'
         })
+        return username
 
     @classmethod
     def del_user(cls, uid):
@@ -74,5 +81,5 @@ class Auth(object):
     def register(cls, en_name, password):
         uid = get_next_uid()
         username = en_name.replace(' ', '').lower()
-        cls.add_new_user(uid, username, password, 'md5')
-        return {'success': True, 'uid': uid}
+        username = cls.add_new_user(uid, username, password, 'md5')
+        return {'success': True, 'uid': uid, 'username': username}
