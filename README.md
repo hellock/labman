@@ -83,4 +83,4 @@ Initial admin username: admin, password: ln8nWjX8
 - [ ] Facility management
 - [x] Show statistics
 - [x] Support candidates and alumni
-- [ ] Design an icon for LabMan
+- [x] Design an icon for LabMan
