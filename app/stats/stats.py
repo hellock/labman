@@ -19,7 +19,6 @@ class Stats(object):
                     positions.append(member['position'])
         ret_data = {}
         ret_data['x_val'] = list(counters.keys())
-        ret_data['positions'] = positions
         ret_data['y_val'] = defaultdict(list)
         for position in positions:
             for supervisor in ret_data['x_val']:
@@ -40,7 +39,6 @@ class Stats(object):
                 years[year] += 1
         years = OrderedDict(sorted(years.items()))
         ret_data = {}
-        ret_data['positions'] = ['Student']
         ret_data['x_val'] = list(years.keys())
         ret_data['y_val'] = {'Student': list(years.values())}
         return ret_data

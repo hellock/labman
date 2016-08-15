@@ -147,9 +147,9 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <li class="header">Overview</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="/overview/members"><i class="fa fa-users"></i> <span>Members</span></a></li>
+        <li><a href="/overview/members"><i class="fa fa-users"></i> <span>Members</span></a></li>
         <li><a href="/overview/publications"><i class="fa fa-book"></i> <span>Publications</span></a></li>
         <li><a href="/overview/facilities"><i class="fa fa-server"></i> <span>Facilities</span></a></li>
         <li class="treeview">
@@ -159,9 +159,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/stats/member">Members</a></li>
-            <li><a href="/stats/publication">Publications</a></li>
-            <li><a href="/stats/facility">Facilities</a></li>
+            <li><a href="/stats/member"><i class="fa fa-circle-o"></i>Members</a></li>
+            <li><a href="/stats/publication"><i class="fa fa-circle-o"></i>Publications</a></li>
+            <li><a href="/stats/facility"><i class="fa fa-circle-o"></i>Facilities</a></li>
           </ul>
         </li>
       </ul>
@@ -225,6 +225,13 @@
 <!-- Main app js -->
 <script src="/static/AdminLTE/dist/js/app.min.js"></script>
 <script type="text/javascript">
+  $(function() {
+    var activeElem = $('.sidebar-menu a[href="' + location.pathname + '"]').parent();
+    activeElem.addClass("active");
+    if (!activeElem.parent().is(".sidebar-menu")) {
+      activeElem.parent().parent().addClass("active");
+    }
+  });
   $("#img_avatar").click( function() {
     location.href="/profile";
   });
