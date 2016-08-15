@@ -56,7 +56,12 @@
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
+          <!-- Help Menu -->
+          <li>
+            <a href="https://github.com/hellock/labman/issues" target="_blank">
+              <i class="fa fa-question-circle-o"></i>
+            </a>
+          </li>
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
@@ -173,9 +178,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/stats/member"><i class="fa fa-circle-o"></i>Members</a></li>
-            <li><a href="/stats/publication"><i class="fa fa-circle-o"></i>Publications</a></li>
-            <li><a href="/stats/facility"><i class="fa fa-circle-o"></i>Facilities</a></li>
+            <li><a href="/stats/member"><i class="fa fa-circle-o"></i>Member</a></li>
+            <li><a href="/stats/publication"><i class="fa fa-circle-o"></i>Publication</a></li>
+            <li><a href="/stats/facility"><i class="fa fa-circle-o"></i>Facility</a></li>
           </ul>
         </li>
       </ul>
@@ -245,9 +250,12 @@
     if (!activeElem.parent().is(".sidebar-menu")) {
       activeElem.parent().parent().addClass("active");
     }
-  });
-  $("#img_avatar").click( function() {
-    location.href="/profile";
+    $("#img_avatar").click( function() {
+      location.href="/profile";
+    });
+    $("#img_avatar_sidebar").click( function() {
+      location.href="/profile";
+    });
   });
 </script>
 

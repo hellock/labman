@@ -51,7 +51,11 @@ def search():
     if 'uid' not in session:
         return redirect(url_for('mod_auth.signin'))
     members = Member.search(request.args.get('q', ''))
-    return render_template('overview_member.html', members=members)
+    if members:
+        return render_template('overview_member.html', members=members)
+    else:
+        flash('No result found!', 'warning')
+        return render_template('overview_member.html')
 
 
 @mod_member.route('/member/new', methods=['GET', 'POST'])
