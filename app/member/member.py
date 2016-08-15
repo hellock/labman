@@ -94,6 +94,7 @@ class Member(object):
         self.cv_url = info['cv_url'] if info else ''
         self.homepage = info['homepage'] if info else ''
         self.avatar_url = info['avatar_url'] if info else '/static/img/avatar/default.png'
+        self.remark = info['remark'] if info else ''
 
     def _db_insert(self, document):
         if not isinstance(document, Mapping):
@@ -157,7 +158,8 @@ class Member(object):
             'google_scholar_page': self.google_scholar_page,
             'cv_url': self.cv_url,
             'homepage': self.homepage,
-            'avatar_url': self.avatar_url
+            'avatar_url': self.avatar_url,
+            'remark': self.remark
         }
         return member_info
 
@@ -191,6 +193,7 @@ class Member(object):
         self.google_scholar_page = form['google_scholar_page']
         self.cv_url = form['cv_url']
         self.homepage = form['homepage']
+        self.remark = form['remark']
         self._db_update({'$set': self.to_info()}, upsert=True)
         return True
 
