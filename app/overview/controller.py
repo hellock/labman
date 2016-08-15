@@ -28,3 +28,8 @@ def publications():
     publications = Member.list_publications()
     return render_template('overview_publications.html',
                            publications=publications)
+
+
+@mod_overview.route('/stats', methods=['GET'])
+def stats_member():
+    return redirect(url_for('mod_stats.member'))

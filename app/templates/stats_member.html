@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | Stats</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>Statistics</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
+  <li class="active">stats</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">Supervisor</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <canvas id="chart_supervisor"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">Admission year</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <canvas id="chart_year"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ macros.chart_common_js() }}
+{{ macros.bar_chart_js("chart_supervisor", "/stats/member", "supervisor") }}
+{{ macros.bar_chart_js("chart_year", "/stats/member", "admission_year") }}
+{% endblock %}
