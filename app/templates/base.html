@@ -149,7 +149,19 @@
       <ul class="sidebar-menu">
         <li class="header">Overview</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="/overview/members"><i class="fa fa-users"></i> <span>Members</span></a></li>
+        <!-- <li><a href="/overview/members"><i class="fa fa-users"></i> <span>Members</span></a></li> -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-group"></i> <span>Members</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/overview/members/present"><i class="fa fa-circle-o"></i>Present</a></li>
+            <li><a href="/overview/members/alumni"><i class="fa fa-circle-o"></i>Alumni</a></li>
+            <li><a href="/overview/members/candidate"><i class="fa fa-circle-o"></i>Candidates</a></li>
+          </ul>
+        </li>
         <li><a href="/overview/publications"><i class="fa fa-book"></i> <span>Publications</span></a></li>
         <li><a href="/overview/facilities"><i class="fa fa-server"></i> <span>Facilities</span></a></li>
         <li class="treeview">

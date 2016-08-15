@@ -21,9 +21,9 @@ class Member(object):
         return Member(info)
 
     @classmethod
-    def list_all(cls):
+    def list_all(cls, state='Present'):
         members = defaultdict(list)
-        for info in cls._db_find():
+        for info in cls._db_find({'state': state}):
             members[info['position']].append(Member(info))
         # sort by admission date
         for position in members:
@@ -32,9 +32,12 @@ class Member(object):
         return members
 
     @classmethod
-    def list(cls, position):
+    def list(cls, position, only_present=True):
         members = []
-        for info in cls._db_find({'position': position}):
+        conditions = {'position': position}
+        if only_present:
+            conditions['state'] = 'Present'
+        for info in cls._db_find(conditions):
             members.append(Member(info))
         members.sort(
             key=lambda x: ''.join(reversed(x.from_date.split('/'))))
@@ -74,6 +77,7 @@ class Member(object):
         self.uid = info['uid'] if info else 0
         self.en_name = info['en_name'] if info else ''
         self.zh_name = info['zh_name'] if info else ''
+        self.state = info['state'] if info else 'Present'
         self.position = info['position'] if info else 'Others'
         self.sex = info['sex'] if info else 'Male'
         self.birthdate = info['birthdate'] if info else ''
@@ -137,6 +141,7 @@ class Member(object):
             'uid': self.uid,
             'en_name': self.en_name,
             'zh_name': self.zh_name,
+            'state': self.state,
             'position': self.position,
             'sex': self.sex,
             'birthdate': self.birthdate,
@@ -159,6 +164,7 @@ class Member(object):
     def update(self, form):
         self.en_name = form['en_name']
         self.zh_name = form['zh_name']
+        self.state = form['state']
         self.position = form['position']
         self.sex = form['sex']
         self.birthdate = form['birthdate']

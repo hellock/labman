@@ -9,7 +9,10 @@ class Stats(object):
     def by_supervisor(cls):
         db = get_db()
         members = db.members.find(
-            {'uid': {'$gte': 1000}, 'supervisor': {'$ne': 'None'}})
+            {'uid': {'$gte': 1000},
+             'state': {'$eq': 'Present'},
+             'supervisor': {'$ne': 'None'}}
+        )
         positions = []
         counters = defaultdict(Counter)
         for member in members:
@@ -29,7 +32,10 @@ class Stats(object):
     def by_admission_year(cls):
         db = get_db()
         members = db.members.find(
-            {'uid': {'$gte': 1000}, 'position': {'$ne': 'Professor'}})
+            {'uid': {'$gte': 1000},
+             'position': {'$ne': 'Professor'},
+             'state': {'$eq': 'Present'}}
+        )
         years = defaultdict(int)
         for member in members:
             if not member['from_date']:
