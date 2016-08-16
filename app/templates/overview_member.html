@@ -45,11 +45,11 @@
             </li>
             {% if member.position != "Professor" %}
             <li class="list-group-item">
-              {% if member.cv_url %}
+            {% if member.cv_url %}
               <b>CV</b> <a class="pull-right" href="{{ member.cv_url }}">Link</a>
-              {% else %}
+            {% else %}
               <b>CV</b> <a class="pull-right">None</a>
-              {% endif %}
+            {% endif %}
             </li>
             {% endif %}
           </ul>

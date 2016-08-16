@@ -185,31 +185,31 @@
 <script src="/static/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/static/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script type="text/javascript">
-    $(function () {
-        $("#input_birthdate").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        $("#input_from_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
-        $("#input_to_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
-    });
+  $(function () {
+    $("#input_birthdate").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    $("#input_from_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
+    $("#input_to_date").inputmask("mm/yyyy", {"placeholder": "mm/yyyy"});
+  });
 </script>
 {%- endmacro %}
 
 {% macro select_default(member) -%}
 <script type="text/javascript">
-    $(function () {
-        $("#select_state").val("{{ member.state | default('Present') }}");
-        $("#select_position").val("{{ member.position }}");
-        $("#select_supervisor").val("{{ member.supervisor | default('') }}");
-        if ($("#select_state").val() != "Candidate") {
-            $("#form_rank").hide();
-        }
-        $("#select_state").change(function() {
-            if ($("#select_state").val() != "Candidate") {
-                $("#form_rank").hide();
-            } else {
-                $("#form_rank").show();
-            }
-        });
+  $(function () {
+    $("#select_state").val("{{ member.state | default('Present') }}");
+    $("#select_position").val("{{ member.position }}");
+    $("#select_supervisor").val("{{ member.supervisor | default('') }}");
+    if ($("#select_state").val() != "Candidate") {
+      $("#form_rank").hide();
+    }
+    $("#select_state").change(function() {
+      if ($("#select_state").val() != "Candidate") {
+        $("#form_rank").hide();
+      } else {
+        $("#form_rank").show();
+      }
     });
+  });
 </script>
 {%- endmacro %}
 
@@ -287,7 +287,7 @@
 {%- endmacro %}
 
 {% macro new_publication_form(form_id, submit_url) -%}
-<form class="form-horizontal" id="{{ form_id }}" action="{{ submit_url }}" method="post" _lpchecked="1">
+<form class="form-horizontal" id="{{ form_id }}" action="{{ submit_url }}" method="post">
   <div class="form-group">
     <label class="col-sm-2 control-label">Title</label>
     <div class="col-sm-10">
@@ -441,31 +441,31 @@
 <script src="/static/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/static/js/jquery.validate.min.js"></script>
 <script>
-  $(document).ready(function () {
+  $(function () {
     $('#table_pub').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "order": [[0, 'desc'], [1, 'asc']],
-        "info": true,
-        "autoWidth": false,
-      });
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "order": [[0, 'desc'], [1, 'asc']],
+      "info": true,
+      "autoWidth": false,
+    });
   });
   {% if with_footer %}
   $("#button_new_pub").click(function () {
-      $("#modal_new_pub").modal("toggle");
+    $("#modal_new_pub").modal("toggle");
   });
   $("#button_new_pub_submit").click(function () {
-      var submitType = $('.nav-tabs .active').text();
-      var form_selector = "#form_" + submitType.toLowerCase();
-      $(form_selector).validate({
-        rules: {
-            title: {required: true},
-            author: {required: true},
-            year: {required: true}
-        }
+    var submitType = $('.nav-tabs .active').text();
+    var form_selector = "#form_" + submitType.toLowerCase();
+    $(form_selector).validate({
+      rules: {
+        title: {required: true},
+        author: {required: true},
+        year: {required: true}
+      }
     });
-      $(form_selector).submit();
+    $(form_selector).submit();
   });
   {% endif %}
 </script>
@@ -526,7 +526,7 @@
 
 {% macro bar_chart_js(url) -%}
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(function() {
     $("canvas").each(function() {
       var canvasId = $(this).attr("id");
       $.post({
@@ -557,7 +557,7 @@
         var barChart = new Chart(barChartCanvas);
         barChart.Bar(barChartData, barChartOptions);
       });
-    })
+    });
   });
 </script>
 {%- endmacro %}

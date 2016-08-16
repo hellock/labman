@@ -16,14 +16,14 @@
 
 {% block content %}
 <div class="box box-info">
-  <form class="form-horizontal" id="form_profile" method="post" _lpchecked="1">
+  <form class="form-horizontal" id="form_profile" method="post">
     {{ macros.profile_form(member, supervisors) }}
-    {% if session['auth_level'] == 'admin' %}
+    {% if session["auth_level"] == "admin" %}
     <div class="box-footer">
       <p>
       <button type="button" id="button_delete" class="btn btn-danger margin pull-left">Delete</button>
       <div class="pull-right">
-        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Edit</button>
+        <button type="button" id="button_edit" class="btn btn-info margin">Edit</button>
         <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
       </div>
       </p>
@@ -58,33 +58,33 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-    $("#form_profile :input").attr("readonly", true);
-    {% if session['auth_level'] == 'admin' %}
-    $("#button_update").attr("disabled", true);
-    function toggleEdit(){
-        if ($("#button_edit").text() == "Edit") {
-            $("#button_edit").text("Cancel");
-            $("#form_profile :input").attr("readonly", false);
-            $("#button_update").attr("disabled", false);
-        } else {
-            $("#button_edit").text("Edit");
-            $("#form_profile :input").attr("readonly", true);
-            $("#button_update").attr("disabled", true);
-        }
+  $("#form_profile :input").attr("readonly", true);
+  {% if session["auth_level"] == "admin" %}
+  $("#button_update").attr("disabled", true);
+  $("#button_edit").click(function() {
+    if ($("#button_edit").text() == "Edit") {
+      $("#button_edit").text("Cancel");
+      $("#form_profile :input").attr("readonly", false);
+      $("#button_update").attr("disabled", false);
+    } else {
+      $("#button_edit").text("Edit");
+      $("#form_profile :input").attr("readonly", true);
+      $("#button_update").attr("disabled", true);
     }
-    $("#button_delete").click(function () {
-        $('#modal_delete_confirm').modal('toggle')
+  });
+  $("#button_delete").click(function () {
+    $("#modal_delete_confirm").modal("toggle");
+  });
+  $("#button_delete_confirm").click(function () {
+    $.ajax({
+      url: "#",
+      type: "DELETE",
+      success: function() {
+        location.href = "/overview";
+      }
     });
-    $("#button_delete_confirm").click(function () {
-        $.ajax({
-            url: '#',
-            type: 'DELETE',
-            success: function() {
-                location.href = "/overview"
-            }
-        });
-    });
-    {% endif %}
+  });
+  {% endif %}
 </script>
 {{ macros.input_mask() }}
 {{ macros.select_default(member) }}
