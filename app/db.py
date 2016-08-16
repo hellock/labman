@@ -13,7 +13,7 @@ def init_db():
     db.counters.insert_one({'_id': 'uid', 'next_uid': 1000})
     # add an admin account
     from app.auth import Auth
-    from app.profile import Member
+    from app.member import Member
     admin_username = 'admin'
     admin_password = rand_str(8)
     encrypted = Auth.encrypt_password(admin_password)

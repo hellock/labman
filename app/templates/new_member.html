@@ -31,6 +31,7 @@
 
 {% block extra_js %}
 {{ macros.input_mask() }}
+{{ macros.select_default(member) }}
 <script type="text/javascript">
     $("#sex_option_male").attr('checked', 'checked');
 </script>

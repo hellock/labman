@@ -166,7 +166,9 @@
           <ul class="treeview-menu">
             <li><a href="/overview/members/present"><i class="fa fa-circle-o"></i>Present</a></li>
             <li><a href="/overview/members/alumni"><i class="fa fa-circle-o"></i>Alumni</a></li>
+            {% if session["auth_level"] == "admin" %}
             <li><a href="/overview/members/candidate"><i class="fa fa-circle-o"></i>Candidates</a></li>
+            {% endif %}
           </ul>
         </li>
         <li><a href="/overview/publications"><i class="fa fa-book"></i> <span>Publications</span></a></li>

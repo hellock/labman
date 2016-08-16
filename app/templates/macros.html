@@ -122,6 +122,12 @@
       <input name="bachelor_department" class="form-control" id="input_bachelor_department" value="{{ member.bachelor.department|default() }}" placeholder="Department (in English)" >
     </div>
   </div>
+  <div class="form-group" id="form_rank">
+    <label class="col-sm-2 control-label">Bachelor GPA rank</label>
+    <div class="col-sm-10">
+      <input name="bachelor_rank" class="form-control" id="input_bachelor_rank" value="{{ member.bachelor.rank|default() }}" placeholder="GPA rank (rank/total)" >
+    </div>
+  </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Master school</label>
     <div class="col-sm-10">
@@ -199,9 +205,18 @@
         $("#select_state").val("{{ member.state | default('Present') }}");
         $("#select_position").val("{{ member.position }}");
         $("#select_supervisor").val("{{ member.supervisor | default('') }}");
+        if ($("#select_state").val() != "Candidate") {
+            $("#form_rank").hide();
+        }
+        $("#select_state").change(function() {
+            if ($("#select_state").val() != "Candidate") {
+                $("#form_rank").hide();
+            } else {
+                $("#form_rank").show();
+            }
+        });
     });
 </script>
-
 {%- endmacro %}
 
 {% macro new_publication_form(form_id, submit_url) -%}

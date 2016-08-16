@@ -81,27 +81,36 @@ class Member(object):
         return True
 
     def __init__(self, info=None):
-        self.uid = info['uid'] if info else 0
-        self.en_name = info['en_name'] if info else ''
-        self.zh_name = info['zh_name'] if info else ''
-        self.state = info['state'] if info else 'Present'
-        self.position = info['position'] if info else 'Others'
-        self.sex = info['sex'] if info else 'Male'
-        self.birthdate = info['birthdate'] if info else ''
-        self.email = info['email'] if info else ''
-        self.supervisor = info['supervisor'] if info else 'None'
-        self.from_date = info['from_date'] if info else ''
-        self.to_date = info['to_date'] if info else ''
-        self.bachelor = info['bachelor'] if info else {'school': '', 'major': ''}
-        self.master = info['master'] if info else {'school': '', 'major': ''}
-        self.doctor = info['doctor'] if info else {'school': '', 'major': ''}
-        self.awards = info['awards'] if info else []
-        self.publications = info['publications'] if info else []
-        self.google_scholar_page = info['google_scholar_page'] if info else ''
-        self.cv_url = info['cv_url'] if info else ''
-        self.homepage = info['homepage'] if info else ''
-        self.avatar_url = info['avatar_url'] if info else '/static/img/avatar/default.png'
-        self.remark = info['remark'] if info else ''
+        profile = defaultdict(str)
+        if info:
+            profile.update(info)
+        self.uid = profile['uid'] if profile['uid'] else 0
+        self.en_name = profile['en_name']
+        self.zh_name = profile['zh_name']
+        self.state = profile['state'] if profile['state'] else 'Present'
+        self.position = profile['position'] if profile['position'] else 'Others'
+        self.sex = profile['sex'] if profile['sex'] else 'Male'
+        self.birthdate = profile['birthdate']
+        self.email = profile['email']
+        self.supervisor = (profile['supervisor']
+                           if profile['supervisor'] else 'None')
+        self.from_date = profile['from_date']
+        self.to_date = profile['to_date']
+        self.bachelor = (profile['bachelor'] if profile['bachelor']
+                         else {'school': '', 'major': '', 'rank': ''})
+        self.master = (profile['master'] if profile['master']
+                       else {'school': '', 'major': ''})
+        self.doctor = (profile['doctor'] if profile['doctor']
+                       else {'school': '', 'major': ''})
+        self.awards = profile['awards'] if profile['awards'] else []
+        self.publications = (profile['publications']
+                             if profile['publications'] else [])
+        self.google_scholar_page = profile['google_scholar_page']
+        self.cv_url = profile['cv_url']
+        self.homepage = profile['homepage']
+        self.avatar_url = (profile['avatar_url'] if profile['avatar_url']
+                           else '/static/img/avatar/default.png')
+        self.remark = profile['remark']
 
     def _db_insert(self, document):
         if not isinstance(document, Mapping):
