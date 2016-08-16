@@ -18,3 +18,15 @@ def member():
         elif request.form['stats_key'] == 'admission_year':
             data = Stats.by_admission_year()
         return jsonify(data)
+
+
+@mod_stats.route('/publication', methods=['GET', 'POST'])
+def publication():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    if request.method == 'GET':
+        return render_template('stats_publication.html')
+    else:
+        if request.form['stats_key'] == 'year':
+            data = Stats.pubs_by_year()
+        return jsonify(data)

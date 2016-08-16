@@ -111,7 +111,8 @@ def member(uid):
             flash('Member info updated!', 'success')
         else:
             flash('Failed to update the member info!', 'error')
-        return redirect(url_for('mod_overview.index'))
+        return redirect(
+            url_for('mod_overview.members', state=member.state.lower()))
     else:
         if session['auth_level'] != 'admin':
             return render_template(

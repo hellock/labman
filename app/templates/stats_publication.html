@@ -10,11 +10,11 @@
 <ol class="breadcrumb">
   <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
   <li><a href="/overview/stats">Stats</a></li>
-  <li class="active">Member</li>
+  <li class="active">Publication</li>
 </ol>
 {% endblock %}
 
-{% set chart_titles = ["Supervisor", "Admission year"] %}
+{% set chart_titles = ["Year"] %}
 
 {% block content %}
 <div class="row">
@@ -28,5 +28,5 @@
 
 {% block extra_js %}
 {{ macros.chart_common_js() }}
-{{ macros.bar_chart_js("/stats/member") }}
+{{ macros.bar_chart_js("/stats/publication") }}
 {% endblock %}

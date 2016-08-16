@@ -1,6 +1,7 @@
 from collections import Counter, defaultdict, OrderedDict
 
 from app.db import get_db
+from app.member import Member
 
 
 class Stats(object):
@@ -34,7 +35,7 @@ class Stats(object):
         members = db.members.find(
             {'uid': {'$gte': 1000},
              'position': {'$ne': 'Professor'},
-             'state': {'$eq': 'Present'}}
+             'state': {'$ne': 'Candidate'}}
         )
         years = defaultdict(int)
         for member in members:
@@ -43,6 +44,17 @@ class Stats(object):
             else:
                 year = member['from_date'].split('/')[-1]
                 years[year] += 1
+        years = OrderedDict(sorted(years.items()))
+        ret_data = {}
+        ret_data['x_val'] = list(years.keys())
+        ret_data['y_val'] = {'Student': list(years.values())}
+        return ret_data
+
+    @classmethod
+    def pubs_by_year(cls):
+        years = defaultdict(int)
+        for pub in Member.list_publications():
+            years[pub['year']] += 1
         years = OrderedDict(sorted(years.items()))
         ret_data = {}
         ret_data['x_val'] = list(years.keys())

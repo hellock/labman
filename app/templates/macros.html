@@ -471,6 +471,24 @@
 </script>
 {%- endmacro %}
 
+{% macro bar_chart(title) -%}
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">{{ title }}</h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="chart">
+      <canvas id="chart_{{ title | replace(' ', '_') | lower }}"></canvas>
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
 {% macro chart_common_js() -%}
 <script src="/static/AdminLTE/plugins/chartjs/Chart.min.js"></script>
 <script type="text/javascript">
@@ -506,37 +524,40 @@
 </script>
 {%- endmacro %}
 
-{% macro bar_chart_js(canvas_id, url, stats_key) -%}
+{% macro bar_chart_js(url) -%}
 <script type="text/javascript">
   $(document).ready(function() {
-    $.post({
-      url: "{{ url }}",
-      data: {stats_key: "{{ stats_key }}"},
-      dataType: 'json',
-    }).done(function (retData) {
-      var labels = retData["x_val"], datasets = [];
-      for (var position in retData["y_val"]) {
-        datasets.push({
-          label: position,
-          pointStrokeColor: "#c1c7d1",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: retData["y_val"][position]
-        })
-      }
-      for (i = 0; i < datasets.length; i++) {
-        datasets[i].fillColor = colors[i];
-        datasets[i].strokeColor = colors[i];
-        datasets[i].pointColor = colors[i];
-      }
-      var barChartData = {
-        labels: labels,
-        datasets: datasets
-      };
-      var barChartCanvas = $("#{{ canvas_id }}").get(0).getContext("2d");
-      var barChart = new Chart(barChartCanvas);
-      barChart.Bar(barChartData, barChartOptions);
-    });
+    $("canvas").each(function() {
+      var canvasId = $(this).attr("id");
+      $.post({
+        url: "{{ url }}",
+        data: {stats_key: canvasId.split("_").slice(1).join("_")},
+        dataType: 'json',
+      }).done(function (retData) {
+        var labels = retData["x_val"], datasets = [];
+        for (var position in retData["y_val"]) {
+          datasets.push({
+            label: position,
+            pointStrokeColor: "#c1c7d1",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: retData["y_val"][position]
+          })
+        }
+        for (i = 0; i < datasets.length; i++) {
+          datasets[i].fillColor = colors[i];
+          datasets[i].strokeColor = colors[i];
+          datasets[i].pointColor = colors[i];
+        }
+        var barChartData = {
+          labels: labels,
+          datasets: datasets
+        };
+        var barChartCanvas = $("#" + canvasId).get(0).getContext("2d");
+        var barChart = new Chart(barChartCanvas);
+        barChart.Bar(barChartData, barChartOptions);
+      });
+    })
   });
 </script>
 {%- endmacro %}
