@@ -75,8 +75,13 @@ def add_member():
     else:
         member = Member.new(request.form)
         if member:
+            if member.position == 'Professor':
+                auth_level = 'admin'
+            else:
+                auth_level = 'memebr'
             username = member.en_name.replace(' ', '').lower()
-            username = Auth.add_new_user(member.uid, username)
+            username = Auth.add_new_user(member.uid, username,
+                                         auth_level=auth_level)
             flash('Successfully added a new member, username is ' + username,
                   'success')
         else:

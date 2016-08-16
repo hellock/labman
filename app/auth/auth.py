@@ -54,7 +54,8 @@ class Auth(object):
         return user
 
     @classmethod
-    def add_new_user(cls, uid, username, password=None, src='plain_text'):
+    def add_new_user(cls, uid, username, password=None, src='plain_text',
+                     auth_level='member'):
         if not password:
             password = username
         db = get_db()
@@ -68,7 +69,7 @@ class Auth(object):
             'uid': uid,
             'username': username,
             'password': cls.encrypt_password(password, src),
-            'auth_level': 'member'
+            'auth_level': auth_level
         })
         return username
 
