@@ -65,8 +65,9 @@ class Member(object):
         publications = {}
         for member in members_with_pub:
             for item in member['publications']:
-                if item['title'] not in publications:
-                    publications[item['title']] = item
+                unique_title = item['title'].lower()
+                if unique_title not in publications:
+                    publications[unique_title] = item
         return publications.values()
 
     @classmethod
