@@ -32,11 +32,11 @@ class Member(object):
         return members
 
     @classmethod
-    def list(cls, position, only_present=True):
+    def list(cls, position, state='Present'):
         members = []
         conditions = {'position': position}
-        if only_present:
-            conditions['state'] = 'Present'
+        if state:
+            conditions['state'] = state
         for info in cls._db_find(conditions):
             members.append(Member(info))
         members.sort(

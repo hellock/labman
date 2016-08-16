@@ -33,13 +33,9 @@
 
     <form id="form_register" action="/register" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="en_name" class="form-control" placeholder="Full English name" required>
+        <input type="text" name="en_name" class="form-control" placeholder="Full English name (e.g. Zhang San)" required>
         <span class="fa fa-user form-control-feedback"></span>
       </div>
-      <!-- <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="fa fa-envelope form-control-feedback"></span>
-      </div> -->
       <div class="form-group has-feedback">
         <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
         <span class="fa fa-lock form-control-feedback"></span>
@@ -58,6 +54,8 @@
         </div>
       </div>
     </form>
+    <hr>
+    <p><strong>Note:</strong> Your username will be lowercased full english name without whitespaces. (e.g. zhangsan)</p>
   </div>
   <!-- /.form-box -->
 </div>
