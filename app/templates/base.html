@@ -258,8 +258,14 @@
     $("#img_avatar").click( function() {
       location.href="/profile";
     });
+    $("#img_avatar").hover(function() {
+      $(this).css('cursor','pointer');
+    });
     $("#img_avatar_sidebar").click( function() {
       location.href="/profile";
+    });
+    $("#img_avatar_sidebar").hover(function() {
+      $(this).css('cursor','pointer');
     });
   });
 </script>
