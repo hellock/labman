@@ -74,7 +74,7 @@ Initial admin username: admin, password: ln8nWjX8
 - [x] Admin settings, such as set the auth level of members
 - [x] Select supervisor instead of inputting
 - [x] Show all members according to the admission year and position
-- [ ] Make supervisor on the member overview page clickable
+- [x] Make supervisor on the member overview page clickable
 - [ ] Delete publications
 - [x] Support submitting forms besides bibtex to add publications
 - [ ] Notification module

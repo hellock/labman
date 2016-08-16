@@ -25,7 +25,12 @@ def members(state='present'):
         session['position'] = current_user.position
         session['avatar_url'] = current_user.avatar_url
     members = Member.list_all(state[0].upper() + state[1:])
-    return render_template('overview_member.html', members=members)
+    supervisor_urls = {}
+    supervisor_list = Member.list('Professor')
+    for supervisor in supervisor_list:
+        supervisor_urls[supervisor.en_name] = '/member/' + str(supervisor.uid)
+    return render_template('overview_member.html',
+                           members=members, supervisor_urls=supervisor_urls)
 
 
 @mod_overview.route('/publications', methods=['GET'])

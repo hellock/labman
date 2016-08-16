@@ -37,7 +37,7 @@
             </li>
             {% if member.position != "Professor" %}
             <li class="list-group-item">
-              <b>Supervisor</b> <a class="pull-right">{{ member.supervisor }}</a>
+              <b>Supervisor</b> <a class="pull-right" href="{{ supervisor_urls[member.supervisor] }}">{{ member.supervisor }}</a>
             </li>
             {% endif %}
             <li class="list-group-item">
