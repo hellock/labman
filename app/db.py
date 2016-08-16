@@ -29,6 +29,7 @@ def init_db():
     db.members.insert_one(empty_info)
     # create indexes
     db.auth.create_index([('uid', ASCENDING)], unique=True)
+    db.comments.create_index([('uid', ASCENDING)], unique=True)
     db.members.create_index([('uid', ASCENDING)], unique=True)
     db.members.create_index([('en_name', TEXT)])
     return (admin_username, admin_password)

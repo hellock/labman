@@ -51,6 +51,15 @@ class Member(object):
         return members
 
     @classmethod
+    def get_comments(cls, uid):
+        db = get_db()
+        comments = db.comments.find_one({'uid': uid})
+        if comments:
+            return comments['comments']
+        else:
+            return []
+
+    @classmethod
     def list_publications(cls):
         members_with_pub = cls._db_find({'publications': {'$exists': True}})
         publications = {}
@@ -235,3 +244,16 @@ class Member(object):
 
     def del_publication(self, pub_id):
         self._db_update({'$pull': {'publications': {'ID': pub_id}}})
+
+    def add_comment_to(self, uid, content):
+        db = get_db()
+        comment = {
+            'uid': self.uid,
+            'name': self.en_name,
+            'avatar_url': self.avatar_url,
+            'time': datetime.utcnow(),
+            'content': content
+        }
+        db.comments.update_one(
+            {'uid': uid}, {'$push': {'comments': comment}}, True)
+        return comment

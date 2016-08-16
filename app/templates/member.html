@@ -53,7 +53,7 @@
   </form>
 </div>
 {{ macros.publication_table(member.publications, with_footer=(session['auth_level']=='admin'), submit_url="/member/%d/publications"|format(member.uid)) }}
-</div>
+{{ macros.comment(member) }}
 {% endblock %}
 
 {% block extra_js %}
@@ -89,4 +89,5 @@
 {{ macros.input_mask() }}
 {{ macros.select_default(member) }}
 {{ macros.publication_js() }}
+{{ macros.comment_js() }}
 {% endblock %}

@@ -65,8 +65,8 @@ def add_member():
     elif session['auth_level'] != 'admin':
         return render_template(
             'access_denied.html',
-            info='You do not have the authority to add a member, '
-                 'please contact the administrator.'
+            info='You do not have access to adding members, '
+                 'please contact the administrators.'
         )
     if request.method == 'GET':
         supervisors = Member.list('Professor')
@@ -85,15 +85,27 @@ def add_member():
 
 
 @mod_member.route('/member/<int:uid>', methods=['GET', 'POST', 'DELETE'])
-def view_member(uid):
+def member(uid):
     if 'uid' not in session:
         return redirect(url_for('mod_auth.signin'))
     if request.method == 'GET':
         member = Member.get_by_uid(uid)
+        if member.state == 'Candidate' and session['auth_level'] != 'admin':
+            return render_template(
+                'access_denied.html',
+                info='You do not have access to this member page, '
+                     'please contact the administrators.'
+            )
         supervisors = Member.list('Professor')
         return render_template('member.html', member=member,
                                supervisors=supervisors)
     elif request.method == 'POST':
+        if session['auth_level'] != 'admin':
+            return render_template(
+                'access_denied.html',
+                info='You do not have access to updating other members\' '
+                     'profiles, please contact the administrators'
+            )
         member = Member.get_by_uid(uid)
         if member.update(request.form):
             flash('Member info updated!', 'success')
@@ -101,6 +113,12 @@ def view_member(uid):
             flash('Failed to update the member info!', 'error')
         return redirect(url_for('mod_overview.index'))
     else:
+        if session['auth_level'] != 'admin':
+            return render_template(
+                'access_denied.html',
+                info='You do not have access to deleting members, '
+                     'please contact the administrators.'
+            )
         if Member.delete(uid):
             Auth.del_user(uid)
             flash('Successfully deleted a member!', 'success')
@@ -116,12 +134,24 @@ def manage_publication(uid):
     elif session['auth_level'] != 'admin':
         return render_template(
             'access_denied.html',
-            info='You do not have the authority to add publications for '
-                 'a member, please contact the administrator.'
+            info='You do not have access to adding publications for '
+                 'other members, please contact the administrators.'
         )
     member = Member.get_by_uid(uid)
     if request.method == 'POST':
         member.add_publication(request.form)
-        return redirect(url_for('mod_member.view_member', uid=uid))
+        return redirect(url_for('mod_member.member', uid=uid))
     else:
         pass
+
+
+@mod_member.route('/member/<int:uid>/comments', methods=['GET', 'POST'])
+def comments(uid):
+    if 'uid' not in session:
+        return jsonify({'success': False, 'msg': 'Please signin first.'})
+    if request.method == 'GET':
+        return jsonify(Member.get_comments(uid))
+    elif request.method == 'POST':
+        member = Member.get_by_uid(session['uid'])
+        comment = member.add_comment_to(uid, request.form['comment'])
+        return jsonify(comment)
