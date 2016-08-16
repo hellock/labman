@@ -71,7 +71,7 @@ Initial admin username: admin, password: ln8nWjX8
 - [ ] Implement "remember me" checkbox
 - [x] Upload avatar
 - [x] Change password
-- [ ] Admin settings, such as set the auth level of members
+- [x] Admin settings, such as set the auth level of members
 - [x] Select supervisor instead of inputting
 - [x] Show all members according to the admission year and position
 - [ ] Make supervisor on the member overview page clickable

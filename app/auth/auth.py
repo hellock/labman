@@ -48,6 +48,36 @@ class Auth(object):
             return {'success': True, 'msg': ''}
 
     @classmethod
+    def list_all(cls):
+        usernames = []
+        db = get_db()
+        for user in db.auth.find({'uid': {'$gte': 1000}}):
+            usernames.append(user['username'])
+        return usernames
+
+    @classmethod
+    def get_admins(cls):
+        admins = []
+        db = get_db()
+        for user in db.auth.find({'uid': {'$gte': 1000}, 'auth_level': 'admin'}):
+            admins.append(user['username'])
+        return admins
+
+    @classmethod
+    def set_admins(cls, admins):
+        old_admins = cls.get_admins()
+        db = get_db()
+        for username in admins:
+            if username not in old_admins:
+                db.auth.update_one({'username': username},
+                                   {'$set': {'auth_level': 'admin'}})
+            else:
+                old_admins.remove(username)
+        for username in old_admins:
+            db.auth.update_one({'username': username},
+                               {'$set': {'auth_level': 'member'}})
+
+    @classmethod
     def get_user_info(cls, username):
         db = get_db()
         user = db.auth.find_one({'username': username})

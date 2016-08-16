@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, request, render_template, session, redirect, url_for
+from flask import Blueprint, flash, jsonify, request, render_template, session, redirect, url_for
 
 from .auth import Auth
 from app import CONFIG
@@ -72,3 +72,29 @@ def account():
             return redirect(url_for('mod_overview.index'))
         else:
             return render_template('account.html', error_msg=ret['msg'])
+
+
+@mod_auth.route('/setting', methods=['GET'])
+def setting():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    elif session['auth_level'] != 'admin':
+        return render_template('access_denied.html',
+                               info='You do not have access to settings, '
+                                    'please contact the administrators.')
+    usernames = Auth.list_all()
+    admins = Auth.get_admins()
+    return render_template('setting.html', usernames=usernames, admins=admins)
+
+
+@mod_auth.route('/setting/admin', methods=['POST'])
+def set_admin():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    elif session['auth_level'] != 'admin':
+        return render_template('access_denied.html',
+                               info='You do not have access to settings, '
+                                    'please contact the administrators.')
+    Auth.set_admins(request.form.getlist('admins[]'))
+    flash('Admins updated!', 'success')
+    return jsonify({'success': True})

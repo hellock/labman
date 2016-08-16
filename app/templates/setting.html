@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | Setting</title>
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="/static/AdminLTE/plugins/select2/select2.min.css">
+{% endblock %}
+
+{% block content_header %}
+<h1>Settings</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Home</a></li>
+  <li class="active">setting</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Set admins</h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="form-group">
+      <label>Usernames</label>
+      <select class="form-control select2" name="admins" id="select_admins" multiple="multiple" data-placeholder="Select all admins here" style="width: 100%;">
+      {% for username in usernames %}
+        <option>{{ username }}</option>
+      {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="box-footer">
+      <button type="button" id="button_submit_admins" class="btn btn-info pull-right">Update</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/AdminLTE/plugins/select2/select2.full.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $(".select2").select2();
+    $("#select_admins").val({{ admins | safe }}).trigger("change");
+  });
+  $("#button_submit_admins").click(function() {
+    $.post(
+      "/setting/admin",
+      {admins: $("#select_admins").val()}
+    ).done(function() {
+      location.reload();
+    });
+  });
+</script>
+{% endblock %}

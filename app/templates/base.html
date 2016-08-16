@@ -185,6 +185,9 @@
             <li><a href="/stats/facility"><i class="fa fa-circle-o"></i>Facility</a></li>
           </ul>
         </li>
+        {% if session["auth_level"] == "admin" %}
+        <li><a href="/setting"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+        {% endif %}
       </ul>
       <!-- /.sidebar-menu -->
     </section>
