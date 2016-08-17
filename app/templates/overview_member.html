@@ -37,7 +37,11 @@
             </li>
             {% if member.position not in session["config"]["supervisor_positions"] %}
             <li class="list-group-item">
+            {% if supervisor_urls is defined %}
               <b>Supervisor</b> <a class="pull-right" href="{{ supervisor_urls[member.supervisor] }}">{{ member.supervisor }}</a>
+            {% else %}
+              <b>Supervisor</b> <a class="pull-right">{{ member.supervisor }}</a>
+            {% endif %}
             </li>
             {% endif %}
             <li class="list-group-item">

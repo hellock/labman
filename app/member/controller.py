@@ -91,7 +91,12 @@ def search():
                    'q': request.args.get('q', ''),
                    'result': result_list}
         )
-        return render_template('overview_member.html', members=members)
+        supervisor_urls = {}
+        supervisor_list = Member.list(session['config']['supervisor_positions'])
+        for supervisor in supervisor_list:
+            supervisor_urls[supervisor.en_name] = '/member/' + str(supervisor.uid)
+        return render_template('overview_member.html', members=members,
+                               supervisor_urls=supervisor_urls)
     else:
         flash('No result found!', 'warning')
         logger.info('search members',

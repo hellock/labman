@@ -29,7 +29,7 @@
       </form>
     </div>
     <div class="col-md-5">
-      <p>Tips: Uploaded photo should be square, such as size 256x256</p>
+      <p><strong>Tips:</strong> Uploaded photo should be square, otherwise it will be cropped</p>
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@
     <div class="box-footer">
       <p>
       <div class="pull-right">
-        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Edit</button>
+        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Cancel</button>
         <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
       </div>
       </p>
@@ -56,8 +56,8 @@
 <script src="/static/js/jquery.fileupload.js"></script>
 <script type="text/javascript">
   $(function () {
-    $("#form_profile :input").attr("readonly", true);
-    $("#button_update").attr("disabled", true);
+    // $("#form_profile :input").attr("readonly", true);
+    // $("#button_update").attr("disabled", true);
     $("#file_avatar").fileupload({
       dataType: "json",
       done: function (e, data) {
