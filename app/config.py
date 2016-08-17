@@ -1,5 +1,6 @@
 # Global configuration variable
 CONFIG = {
+    # lab name will be shown on the signin page
     'lab_name': 'Multimedia Laboratory',
     # database info
     'db': {
@@ -9,6 +10,7 @@ CONFIG = {
     },
     # log configuration
     'log': {
+        # logging levels: 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
         'level': 'INFO',
         # whether to use capped collections to support high-throughput operations
         'capped': False
@@ -18,6 +20,8 @@ CONFIG = {
     # list of positions to be chosen from
     'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
                   'RA', 'Intern', 'Others'],
+    # indicate which positions belong to supervisors
+    'supervisor_positions': ['Professor'],
     # predefined conference names that will be shown as select options
     'conferences': [
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',

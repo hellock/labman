@@ -47,6 +47,7 @@ The configuration file `app/config.py` is like the following.
 ``` python
 # Global configuration variable
 CONFIG = {
+    # lab name will be shown on the signin page
     'lab_name': 'Multimedia Laboratory',
     # database info
     'db': {
@@ -56,6 +57,7 @@ CONFIG = {
     },
     # log configuration
     'log': {
+        # logging levels: 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
         'level': 'INFO',
         # whether to use capped collections to support high-throughput operations
         'capped': False
@@ -65,12 +67,14 @@ CONFIG = {
     # list of positions to be chosen from
     'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
                   'RA', 'Intern', 'Others'],
+    # indicate which positions belong to supervisors
+    'supervisor_positions': ['Professor'],
     # predefined conference names that will be shown as select options
     'conferences': [
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
         'The IEEE International Conference on Computer Vision (ICCV)',
         'European Conference on Computer Vision (ECCV)',
-        'Conference on Neural Information Processing Systems (NIPS)'
+        'Conference on Neural Information Processing Systems (NIPS)',
         'The International Conference on Machine Learning (ICML)',
         'AAAI Conference on Artificial Intelligence'
     ],

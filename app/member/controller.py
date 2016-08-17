@@ -19,7 +19,7 @@ def profile():
         logger.info('/profile',
                     extra={'uid': session['uid'],
                            'en_name': session['en_name']})
-        supervisors = Member.list('Professor')
+        supervisors = Member.list(session['config']['supervisor_positions'])
         return render_template('profile.html', member=member,
                                supervisors=supervisors)
     elif request.method == 'POST':
@@ -119,13 +119,13 @@ def add_member():
         logger.info('/member/new',
                     extra={'uid': session['uid'],
                            'en_name': session['en_name']})
-        supervisors = Member.list('Professor')
+        supervisors = Member.list(session['config']['supervisor_positions'])
         return render_template('new_member.html', member=Member(),
                                supervisors=supervisors)
     else:
         member = Member.new(request.form)
         if member:
-            if member.position == 'Professor':
+            if member.position in session['config']['supervisor_positions']:
                 auth_level = 'admin'
             else:
                 auth_level = 'memebr'
@@ -170,7 +170,7 @@ def member(uid):
                            'en_name': session['en_name'],
                            'member_uid': uid,
                            'member_name': member.en_name})
-        supervisors = Member.list('Professor')
+        supervisors = Member.list(session['config']['supervisor_positions'])
         return render_template('member.html', member=member,
                                supervisors=supervisors)
     elif request.method == 'POST':

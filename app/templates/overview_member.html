@@ -28,14 +28,14 @@
           <a href="/member/{{ member.uid }}"><h3 class="profile-username text-center">{{ member.en_name }}</h3></a>
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-            {% if member.position == "Professor" %}
+            {% if member.position in session["config"]["supervisor_positions"] %}
               <b>Join date</b>
             {% else %}
               <b>Admission date</b>
             {% endif %}
               <a class="pull-right">{{ member.from_date }}</a>
             </li>
-            {% if member.position != "Professor" %}
+            {% if member.position not in session["config"]["supervisor_positions"] %}
             <li class="list-group-item">
               <b>Supervisor</b> <a class="pull-right" href="{{ supervisor_urls[member.supervisor] }}">{{ member.supervisor }}</a>
             </li>
@@ -43,7 +43,7 @@
             <li class="list-group-item">
               <b>Email</b> <a class="pull-right" href="mailto:{{ member.email }}">{{ member.email }}</a>
             </li>
-            {% if member.position != "Professor" %}
+            {% if member.position not in session["config"]["supervisor_positions"] %}
             <li class="list-group-item">
             {% if member.cv_url %}
               <b>CV</b> <a class="pull-right" href="{{ member.cv_url }}">Link</a>

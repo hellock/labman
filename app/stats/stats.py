@@ -1,5 +1,6 @@
 from collections import Counter, defaultdict, OrderedDict
 
+from app import CONFIG
 from app.db import get_db
 from app.member import Member
 
@@ -34,7 +35,7 @@ class Stats(object):
         db = get_db()
         members = db.members.find(
             {'uid': {'$gte': 1000},
-             'position': {'$ne': 'Professor'},
+             'position': {'$nin': CONFIG['supervisor_positions']},
              'state': {'$ne': 'Candidate'}}
         )
         years = defaultdict(int)

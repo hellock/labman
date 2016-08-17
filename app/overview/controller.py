@@ -37,7 +37,7 @@ def members(state='present'):
                        'en_name': session['en_name'],
                        'state': state})
     supervisor_urls = {}
-    supervisor_list = Member.list('Professor')
+    supervisor_list = Member.list(session['config']['supervisor_positions'])
     for supervisor in supervisor_list:
         supervisor_urls[supervisor.en_name] = '/member/' + str(supervisor.uid)
     return render_template('overview_member.html',

@@ -33,10 +33,15 @@ class Member(object):
 
     @classmethod
     def list(cls, position, state='Present'):
-        members = []
-        conditions = {'position': position}
+        if isinstance(position, str):
+            conditions = {'position': position}
+        elif isinstance(position, list):
+            conditions = {'position': {'$in': position}}
+        else:
+            raise TypeError('position must be a string or list of strings')
         if state:
             conditions['state'] = state
+        members = []
         for info in cls._db_find(conditions):
             members.append(Member(info))
         members.sort(
