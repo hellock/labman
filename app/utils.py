@@ -3,6 +3,7 @@ import random
 import string
 
 from log4mongo.handlers import MongoHandler
+from PIL import Image
 
 from app import CONFIG
 from app.db import get_db
@@ -33,3 +34,17 @@ def get_logger(name):
     logger.addHandler(MongoHandler(host=CONFIG['db']['ip'],
                                    capped=CONFIG['log']['capped']))
     return logger
+
+
+def crop_square(filename):
+    img = Image.open(filename)
+    w, h = img.size
+    if w == h:
+        return
+    elif w > h:
+        x = round((w - h) / 2)
+        region = img.crop((x, 0, x + h, h))
+    else:
+        y = round((h - w) / 2)
+        region = img.crop((0, y, w, y + w))
+    region.save(filename)

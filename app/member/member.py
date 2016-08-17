@@ -4,6 +4,7 @@ from datetime import datetime
 import bibtexparser
 
 from app.db import get_db
+from app.utils import crop_square
 
 
 class Member(object):
@@ -124,7 +125,7 @@ class Member(object):
         self.cv_url = profile['cv_url']
         self.homepage = profile['homepage']
         self.avatar_url = (profile['avatar_url'] if profile['avatar_url']
-                           else '/static/img/avatar/default.png')
+                           else '/static/img/avatar/default.jpg')
 
     def _db_insert(self, document):
         if not isinstance(document, Mapping):
@@ -226,8 +227,10 @@ class Member(object):
         return True
 
     def change_avatar(self, img_file):
-        avatar_url = '/static/img/avatar/{}.png'.format(self.uid)
-        img_file.save('app' + avatar_url)
+        avatar_url = '/static/img/avatar/{}.jpg'.format(self.uid)
+        filename = 'app' + avatar_url
+        img_file.save(filename)
+        crop_square(filename)
         self._db_update({'$set': {'avatar_url': avatar_url}})
         return avatar_url
 
