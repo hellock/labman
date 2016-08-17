@@ -7,6 +7,12 @@ CONFIG = {
         'port': 27017,
         'name': 'mmlab'
     },
+    # log configuration
+    'log': {
+        'level': 'INFO',
+        # whether to use capped collections to support high-throughput operations
+        'capped': False
+    },
     # `mode` can be either 'debug' or 'deploy'
     'run_mode': 'debug',
     # list of positions to be chosen from

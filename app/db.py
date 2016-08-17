@@ -4,7 +4,6 @@ from flask import g
 from pymongo import ASCENDING, MongoClient, TEXT
 
 from app import CONFIG
-from app.utils import rand_str
 
 
 def init_db():
@@ -14,6 +13,7 @@ def init_db():
     # add an admin account
     from app.auth import Auth
     from app.member import Member
+    from app.utils import rand_str
     admin_username = 'admin'
     admin_password = rand_str(8)
     encrypted = Auth.encrypt_password(admin_password)

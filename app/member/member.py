@@ -235,7 +235,8 @@ class Member(object):
             for key in form:
                 if form[key]:
                     entries[key] = form[key]
-            entries['ID'] = (entries['author'].split(',')[0] + entries['year'] +
+            last_name = entries['author'].split(' ')[0].split(',')[0]
+            entries['ID'] = (last_name + entries['year'] +
                              entries['title'].split(' ')[0]).lower()
             entries = [entries]
         self._db_update({'$push': {'publications': {'$each': entries}}})

@@ -78,7 +78,7 @@ Initial admin username: admin, password: ln8nWjX8
 - [ ] Delete publications
 - [x] Support submitting forms besides bibtex to add publications
 - [ ] Notification module
-- [ ] Log users' activities
+- [x] Log users' activities
 - [x] Search box
 - [ ] Facility management
 - [x] Show statistics
