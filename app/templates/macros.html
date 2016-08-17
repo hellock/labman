@@ -377,12 +377,12 @@
 
 {% macro publication_table(publications, box_type="box-info", with_header=True, with_footer=True, submit_url="/profile/publications") -%}
 <div class="box {{ box_type }}" id="publications">
-  <div class="box-body">
   {% if with_header %}
-    <div class="box-header with-border">
-      <h3 class="box-title">Publications</h3>
-    </div>
+  <div class="box-header with-border">
+    <h3 class="box-title">Publications</h3>
+  </div>
   {% endif %}
+  <div class="box-body">
     <div id="dt_pub_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
       <table id="table_pub" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="table_pub_info">
         <thead>

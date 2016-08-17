@@ -36,9 +36,12 @@ def register():
             member.create()
             session['uid'] = ret['uid']
             session['auth_level'] = 'member'
+            session['en_name'] = member.en_name
+            session['position'] = member.position
+            session['avatar_url'] = member.avatar_url
             flash('Your username is {}, please complete your profile as soon!'
                   .format(ret['username']), 'info')
-            return redirect(url_for('mod_overview.index'))
+            return redirect(url_for('mod_member.profile'))
         else:
             logger.info('registration failure',
                         extra={'en_name': request.form['en_name'],

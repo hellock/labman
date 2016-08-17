@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, session, url_for
 
 from app.config import CONFIG
 from app.auth import mod_auth
@@ -29,3 +29,10 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     return render_template('500.html'), 500
+
+
+@app.route('/help', methods=['GET'])
+def help():
+    if 'uid' not in session:
+        return redirect(url_for('mod_auth.signin'))
+    return render_template('user_guide.html')
