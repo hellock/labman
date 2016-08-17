@@ -23,7 +23,7 @@ CONFIG = {
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
         'The IEEE International Conference on Computer Vision (ICCV)',
         'European Conference on Computer Vision (ECCV)',
-        'Conference on Neural Information Processing Systems (NIPS)'
+        'Conference on Neural Information Processing Systems (NIPS)',
         'The International Conference on Machine Learning (ICML)',
         'AAAI Conference on Artificial Intelligence'
     ],
