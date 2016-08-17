@@ -1,3 +1,4 @@
 bibtexparser
 flask
 pymongo
+log4mongo

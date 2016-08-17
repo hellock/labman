@@ -18,13 +18,16 @@ CONFIG = {
     # list of positions to be chosen from
     'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
                   'RA', 'Intern', 'Others'],
+    # predefined conference names that will be shown as select options
     'conferences': [
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
         'The IEEE International Conference on Computer Vision (ICCV)',
-        'European Conference Computer Vision (ECCV)',
-        'Advances in Neural Information Processing Systems (NIPS)',
-        'Proceedings of the International Conference on Machine Learning (ICML)'
+        'European Conference on Computer Vision (ECCV)',
+        'Conference on Neural Information Processing Systems (NIPS)'
+        'The International Conference on Machine Learning (ICML)',
+        'AAAI Conference on Artificial Intelligence'
     ],
+    # predefined journal names that will be shown as select options
     'journals': [
         'IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)',
         'International Journal of Computer Vision (IJCV)'
