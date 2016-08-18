@@ -1,6 +1,8 @@
 # Global configuration variable
 CONFIG = {
-    # service url starting with http
+    # `mode` can be either 'debug' or 'deploy'
+    'run_mode': 'debug',
+    # service url (starting with http or https)
     'url': 'http://localhost',
     # lab name will be shown on the signin page
     'lab_name': 'Multimedia Laboratory',
@@ -25,8 +27,8 @@ CONFIG = {
         # 'address': 'xxx@example.com',
         # 'password': ''
     },
-    # `mode` can be either 'debug' or 'deploy'
-    'run_mode': 'debug',
+    # allow user registrations
+    'open_registration': True,
     # positions to be chosen from, list of tuples
     'positions': [
         ('1', 'Professor'),

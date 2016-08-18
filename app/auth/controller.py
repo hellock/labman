@@ -30,8 +30,13 @@ def register():
         session['config'] = CONFIG
     if request.method == 'GET':
         logger.info('/register')
-        return render_template('register.html')
+        if session['config']['open_registration']:
+            return render_template('register.html')
+        else:
+            return render_template('register_not_open.html')
     else:
+        if not session['config']['open_registration']:
+            return
         ret = Auth.register(request.form['en_name'], request.form['password'])
         if ret['success']:
             logger.info('registration success',
