@@ -1,24 +1,26 @@
 import os
 
 from flask import Flask, redirect, render_template, session, url_for
+from flask_mail import Mail
 
-from app.config import CONFIG
-from app.auth import mod_auth
-from app.member import mod_member
-from app.notification import mod_notification
-from app.overview import mod_overview
-from app.stats import mod_stats
+try:
+    from app.config import CONFIG
+except ImportError:
+    from app.config_default import CONFIG
 
 
 app = Flask(__name__)
 
+app.config['MAIL_SERVER'] = CONFIG['mail']['server']
+app.config['MAIL_PORT'] = CONFIG['mail']['port']
+app.config['MAIL_USE_SSL'] = CONFIG['mail']['use_ssl']
+app.config['MAIL_DEFAULT_SENDER'] = CONFIG['mail']['address']
+app.config['MAIL_USERNAME'] = CONFIG['mail']['address']
+app.config['MAIL_PASSWORD'] = CONFIG['mail']['password']
+
 app.secret_key = os.urandom(24)
 
-app.register_blueprint(mod_auth)
-app.register_blueprint(mod_member)
-app.register_blueprint(mod_notification)
-app.register_blueprint(mod_overview)
-app.register_blueprint(mod_stats)
+mailer = Mail(app)
 
 
 @app.errorhandler(404)

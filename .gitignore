@@ -1,7 +1,19 @@
+# OS X
 .DS_Store
+
+# python temp files
 *.pyc
 __pycache__/
+
+# mongodb data path
 dbdata/
+
+# virtual enrivonment path
 venv/
+
+# user uploaded avatars
 app/static/img/avatar/*
 !app/static/img/avatar/default.jpg
+
+# config file is included due to privacy
+app/config.py

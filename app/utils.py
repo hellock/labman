@@ -1,11 +1,14 @@
 import logging
 import random
 import string
+from multiprocessing import Process
 
+from flask import render_template
+from flask_mail import Message
 from log4mongo.handlers import MongoHandler
 from PIL import Image
 
-from app import CONFIG
+from app import CONFIG, mailer
 from app.db import get_db
 
 
@@ -55,3 +58,16 @@ def crop_square(filename):
         y = round((h - w) / 2)
         region = img.crop((0, y, w, y + w))
     region.save(filename)
+
+
+def send_mail(subject, member, content):
+    msg = Message(subject,
+                  body='Hi {},\n\n{}'.format(member.en_name, content),
+                  html=render_template('email.html', to_name=member.en_name, content=content),
+                  recipients=[member.email])
+    mailer.send(msg)
+
+
+def async_send_mail(subject, member, content):
+    p = Process(target=send_mail, args=(subject, member, content))
+    p.start()

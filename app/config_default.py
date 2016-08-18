@@ -1,5 +1,7 @@
 # Global configuration variable
 CONFIG = {
+    # service url starting with http
+    'url': 'http://localhost',
     # lab name will be shown on the signin page
     'lab_name': 'Multimedia Laboratory',
     # database info
@@ -14,6 +16,14 @@ CONFIG = {
         'level': 'INFO',
         # whether to use capped collections to support high-throughput operations
         'capped': False
+    },
+    # mail server settings, used for sending notification mails, disabled if empty
+    'mail': {
+        # 'server': 'localhost',
+        # 'port': 465,
+        # 'use_ssl': True,
+        # 'address': 'xxx@example.com',
+        # 'password': ''
     },
     # `mode` can be either 'debug' or 'deploy'
     'run_mode': 'debug',
@@ -42,6 +52,7 @@ CONFIG = {
     # predefined journal names that will be shown as select options
     'journals': [
         'IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)',
+        'IEEE Transactions on Image Processing (TIP)',
         'International Journal of Computer Vision (IJCV)'
     ]
 }

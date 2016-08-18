@@ -1,10 +1,10 @@
-from collections import defaultdict, Mapping, OrderedDict
+from collections import defaultdict, Mapping
 from datetime import datetime
 
 import bibtexparser
 
 from app.db import get_db
-from app.utils import crop_square
+from app.utils import crop_square, async_send_mail
 
 
 class Member(object):
@@ -266,4 +266,9 @@ class Member(object):
         }
         db.comments.update_one(
             {'uid': uid}, {'$push': {'comments': comment}}, True)
+        member = Member.get_by_uid(uid)
+        if member.email and member.state != 'Candidate':
+            subject = 'You have new comments'
+            content = 'Someone has just commented on your page, signin to see it.'
+            async_send_mail(subject, member, content)
         return comment
