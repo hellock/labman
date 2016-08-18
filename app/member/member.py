@@ -122,7 +122,10 @@ class Member(object):
         self.publications = (profile['publications']
                              if profile['publications'] else [])
         self.google_scholar_page = profile['google_scholar_page']
-        self.cv_url = profile['cv_url']
+        if profile['cv_url'] and not profile['cv_url'].startswith('http'):
+            self.cv_url = 'http://' + profile['cv_url']
+        else:
+            self.cv_url = profile['cv_url']
         self.homepage = profile['homepage']
         self.avatar_url = (profile['avatar_url'] if profile['avatar_url']
                            else '/static/img/avatar/default.jpg')
