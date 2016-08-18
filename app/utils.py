@@ -28,6 +28,13 @@ def get_next_uid():
     return res['next_uid']
 
 
+def get_position_name(position_id):
+    for pid, pname in CONFIG['positions']:
+        if pid == position_id:
+            return pname
+    return None
+
+
 def get_logger(name):
     logging.basicConfig(level=CONFIG['log']['level'])
     logger = logging.getLogger(name)

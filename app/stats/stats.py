@@ -22,12 +22,16 @@ class Stats(object):
                 counters[member['supervisor']].update([member['position']])
                 if member['position'] not in positions:
                     positions.append(member['position'])
+        position_map = {}
+        for position_id, position in CONFIG['positions']:
+            position_map[position_id] = position
         ret_data = {}
         ret_data['x_val'] = list(counters.keys())
         ret_data['y_val'] = defaultdict(list)
         for position in positions:
             for supervisor in ret_data['x_val']:
-                ret_data['y_val'][position].append(counters[supervisor][position])
+                ret_data['y_val'][position_map[position]].append(
+                    counters[supervisor][position])
         return ret_data
 
     @classmethod

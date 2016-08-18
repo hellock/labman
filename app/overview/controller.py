@@ -26,11 +26,6 @@ def members(state='present'):
                            'en_name': session['en_name'],
                            'state': state})
         abort(404)
-    elif 'en_name' not in session or 'position' not in 'session':
-        current_user = Member.get_by_uid(session['uid'])
-        session['en_name'] = current_user.en_name
-        session['position'] = current_user.position
-        session['avatar_url'] = current_user.avatar_url
     members = Member.list_all(state[0].upper() + state[1:])
     logger.info('/overview/member/' + state,
                 extra={'uid': session['uid'],

@@ -69,8 +69,8 @@
     <label class="col-sm-2 control-label">Position</label>
     <div class="col-sm-10">
       <select name="position" id="select_position" class="form-control">
-      {% for position in session['config']['positions'] %}
-        <option>{{ position }}</option>
+      {% for position_id, position in session['config']['positions'] %}
+        <option value="{{ position_id | e }}">{{ position | e }}</option>
       {% endfor %}
       </select>
     </div>

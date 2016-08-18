@@ -1,4 +1,4 @@
-from collections import defaultdict, Mapping
+from collections import defaultdict, Mapping, OrderedDict
 from datetime import datetime
 
 import bibtexparser
@@ -104,7 +104,7 @@ class Member(object):
         self.en_name = profile['en_name']
         self.zh_name = profile['zh_name']
         self.state = profile['state'] if profile['state'] else 'Present'
-        self.position = profile['position'] if profile['position'] else 'Others'
+        self.position = profile['position'] if profile['position'] else '0'
         self.sex = profile['sex'] if profile['sex'] else 'Male'
         self.birthdate = profile['birthdate']
         self.email = profile['email']

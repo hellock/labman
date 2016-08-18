@@ -3,12 +3,20 @@ from flask import Blueprint, flash, jsonify, request, render_template, session, 
 from .auth import Auth
 from app import CONFIG
 from app.member import Member
-from app.utils import get_logger
+from app.utils import get_logger, get_position_name
 
 
 mod_auth = Blueprint('mod_auth', __name__, static_folder='../static')
 
 logger = get_logger(__name__)
+
+
+def init_session(auth_level, member):
+    session['uid'] = member.uid
+    session['auth_level'] = auth_level
+    session['en_name'] = member.en_name
+    session['position'] = get_position_name(member.position)
+    session['avatar_url'] = member.avatar_url
 
 
 @mod_auth.route('/', methods=['GET'])
@@ -34,11 +42,7 @@ def register():
             member.uid = ret['uid']
             member.en_name = request.form['en_name']
             member.create()
-            session['uid'] = ret['uid']
-            session['auth_level'] = 'member'
-            session['en_name'] = member.en_name
-            session['position'] = member.position
-            session['avatar_url'] = member.avatar_url
+            init_session('member', member)
             flash('Your username is {}, please complete your profile as soon!'
                   .format(ret['username']), 'info')
             return redirect(url_for('mod_member.profile'))
@@ -60,8 +64,8 @@ def signin():
         ret = Auth.verify_user(request.form['username'], request.form['password'])
         if ret['success']:
             user_info = Auth.get_user_info(request.form['username'])
-            session['uid'] = user_info['uid']
-            session['auth_level'] = user_info['auth_level']
+            member = Member.get_by_uid(user_info['uid'])
+            init_session(user_info['auth_level'], member)
             logger.info('signin success',
                         extra={'uid': user_info['uid'],
                                'username': request.form['username']})

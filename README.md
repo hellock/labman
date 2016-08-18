@@ -17,8 +17,11 @@ LabMan is a laboratory management system originally designed for [MMLab](http://
 # For OSX with python3 installed through brew
 venv ./venv
 source venv/bin/activate
-# For Ubuntu 16.04
-# If an error is thrown out when creating a virtual environment, you can first create it without pip, then install pip manually.
+# For Linux
+python3 -m venv ./venv
+```
+There may be errors thrown out when creating virtual environment on some distributions of Linux, you can first create it without pip, then install pip manually, taking Ubuntu 16.04 LTS for example.
+``` shell
 sudo apt-get install python3-venv
 python3 -m venv --without-pip ./venv
 source venv/bin/activate
@@ -64,11 +67,19 @@ CONFIG = {
     },
     # `mode` can be either 'debug' or 'deploy'
     'run_mode': 'debug',
-    # list of positions to be chosen from
-    'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
-                  'RA', 'Intern', 'Others'],
+    # positions to be chosen from, list of tuples
+    'positions': [
+        ('1', 'Professor'),
+        ('2', 'Postdoctoral Researcher'),
+        ('3', 'PhD'),
+        ('4', 'MPhil'),
+        ('5', 'Master'),
+        ('6', 'Research Assistant'),
+        ('7', 'Intern'),
+        ('0', 'Others'),
+    ],
     # indicate which positions belong to supervisors
-    'supervisor_positions': ['Professor'],
+    'supervisor_positions': ['1'],
     # predefined conference names that will be shown as select options
     'conferences': [
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',

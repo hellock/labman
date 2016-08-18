@@ -17,11 +17,19 @@ CONFIG = {
     },
     # `mode` can be either 'debug' or 'deploy'
     'run_mode': 'debug',
-    # list of positions to be chosen from
-    'positions': ['Professor', 'PostDoc', 'PhD', 'MPhil', 'Master',
-                  'RA', 'Intern', 'Others'],
+    # positions to be chosen from, list of tuples
+    'positions': [
+        ('1', 'Professor'),
+        ('2', 'Postdoctoral Researcher'),
+        ('3', 'PhD'),
+        ('4', 'MPhil'),
+        ('5', 'Master'),
+        ('6', 'Research Assistant'),
+        ('7', 'Intern'),
+        ('0', 'Others'),
+    ],
     # indicate which positions belong to supervisors
-    'supervisor_positions': ['Professor'],
+    'supervisor_positions': ['1'],
     # predefined conference names that will be shown as select options
     'conferences': [
         'The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)',
