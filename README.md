@@ -8,7 +8,7 @@ LabMan is a laboratory management system originally designed for [CUHK MMLab](ht
 - Information statistics
 
 ###Screenshots
-![screenshot](http://ckfile.oss-cn-shenzhen.aliyuncs.com/screenshot_all.jpg)
+![screenshot](https://github.com/hellock/labman/blob/master/app/static/img/screenshots.jpg)
 
 ## Requirements
 - Python 3.3+ (Python 2.7+ should be ok but not tested)
