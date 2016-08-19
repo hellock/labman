@@ -1,11 +1,14 @@
 # LabMan
 
 ## Overview
-LabMan is a laboratory management system originally designed for [MMLab](http://mmlab.ie.cuhk.edu.hk/). This web-based system provides convenience for:
+LabMan is a laboratory management system originally designed for [CUHK MMLab](http://mmlab.ie.cuhk.edu.hk/). This web-based system provides convenience for:
 - Member management
 - Publication management
 - Facility management (not completed)
 - Information statistics
+
+###Screenshots
+![screenshot](http://ckfile.oss-cn-shenzhen.aliyuncs.com/screenshot_all.jpg)
 
 ## Requirements
 - Python 3.3+ (Python 2.7+ should be ok but not tested)
